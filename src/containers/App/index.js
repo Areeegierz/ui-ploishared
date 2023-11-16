@@ -28,13 +28,25 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
   THEME_TYPE_DARK,
 } from "../../constants/ThemeSetting";
+import { authUser } from "../../repository/repository";
 
-const RestrictedRoute = ({
-  component: Component,
-  location,
-  authUser,
-  ...rest
-}) => <Route {...rest} render={(props) => <Component {...props} />} />;
+const RestrictedRoute = ({ component: Component, location, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      authUser ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/signin",
+            state: { from: location },
+          }}
+        />
+      )
+    }
+  />
+);
 
 const setLayoutType = (layoutType) => {
   if (layoutType === LAYOUT_TYPE_FULL) {
@@ -133,7 +145,6 @@ const App = () => {
           <Route exact path="/signup" component={SignUp} />
           <RestrictedRoute
             path={`${match.url}`}
-            authUser={authUser}
             location={location}
             component={MainApp}
           />

@@ -67,7 +67,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               mode="inline"
               itemColor={"#ffffff"}
             >
-              <Menu.Item key="ิbooking">
+              <Menu.Item key="search">
                 <NavLink
                   exact
                   to="/"
@@ -76,11 +76,11 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 >
                   <i className={"icon icon-chart-pie"} />
                   <span>
-                    <IntlMessages id="จองรถ" />
+                    <IntlMessages id="ค้นหารถ" />
                   </span>
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="material">
+              <Menu.Item key="booking">
                 <NavLink
                   to="/material"
                   style={{ color: "#E5E4E2" }}
@@ -88,19 +88,19 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 >
                   <i className="icon icon-widgets" />
                   <span>
-                    <IntlMessages id="จัดการข้อมูลอะไหล่กลาง" />
+                    <IntlMessages id="รายการจองรถ" />
                   </span>
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="Now">
+              <Menu.Item key="User">
                 <NavLink
                   style={{ color: "#E5E4E2" }}
                   activeStyle={{ color: "orange" }}
-                  to="/Now"
+                  to="/User"
                 >
                   <i className="icon icon-widgets" />
                   <span>
-                    <IntlMessages id="อะไหล่ ณ ปัจจุบัน" />
+                    <IntlMessages id="บัญชีผู้ใช้งาน" />
                   </span>
                 </NavLink>
               </Menu.Item>{" "}
