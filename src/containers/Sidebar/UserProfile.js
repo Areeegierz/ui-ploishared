@@ -2,7 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Avatar, Popover } from "antd";
 import { userSignOut } from "../../appRedux/actions";
-import { authUser } from "../../repository/repository";
+import { authUser } from "../../repositories/repository";
+import { UserOutlined } from "@ant-design/icons";
 
 const UserProfile = () => {
   const removeLocalStorage = () => {
@@ -12,7 +13,14 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const userMenuOptions = (
     <ul className="gx-user-popover">
-      <li onClick={() => removeLocalStorage}>ออกจากระบบ</li>
+      <li
+        onClick={() => {
+          localStorage.clear();
+          window.location.assign("/signin");
+        }}
+      >
+        Logout
+      </li>
     </ul>
   );
 
@@ -23,15 +31,13 @@ const UserProfile = () => {
         content={userMenuOptions}
         trigger="click"
       >
-        <Avatar
-          src={
-            "https://cdn.iconscout.com/icon/free/png-512/account-profile-avatar-man-circle-round-user-30452.png"
-          }
-          className="gx-size-40 gx-pointer gx-mr-3"
-          alt=""
-        />
+        <Avatar style={{ backgroundColor: "#87d068" }}>
+          {" "}
+          {authUser.user.name.charAt(0)}
+        </Avatar>
         <span className="gx-avatar-name">
-          {authUser.name}
+          {" "}
+          {authUser.user.name}
           <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
         </span>
       </Popover>

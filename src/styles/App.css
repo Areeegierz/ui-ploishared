@@ -1,0 +1,15 @@
+nav a.active {
+  color: green;
+}
+@font-face {
+  font-family: "CPACMODERNMEDIUM";
+  size-adjust: 115%;
+  src: local("CPACMODERNMEDIUM"), url("../fonts/CPAC/CPACMODERNMEDIUM.TTF");
+}
+body {
+  font-family: "CPACMODERNMEDIUM";
+}
+table {
+  width: auto !important;
+  min-width: 100% !important;
+}

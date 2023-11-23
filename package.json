@@ -1,11 +1,11 @@
 {
-  "name": "wieldy-hook",
+  "name": "ploishared2023",
   "version": "2.5.0",
   "private": true,
   "dependencies": {
     "@amcharts/amcharts3-react": "^3.1.0",
     "@ant-design/compatible": "^1.0.8",
-    "@ant-design/icons": "^4.3.0",
+    "@ant-design/icons": "^5.2.6",
     "@babel/compat-data": "^7.12.7",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
@@ -13,6 +13,7 @@
     "algoliasearch": "^4.8.5",
     "amcharts3": "^3.21.15",
     "antd": "^4.15.1",
+    "antd-img-crop": "^4.17.0",
     "antd-theme-webpack-plugin": "^1.3.7",
     "app-redux": "^2.0.3",
     "axios": "^0.21.1",
@@ -46,6 +47,7 @@
     "react-intl": "^5.10.16",
     "react-notifications": "^1.7.2",
     "react-placeholder": "^4.0.3",
+    "react-query": "^3.39.3",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^4.0.8",
@@ -65,7 +67,7 @@
     "victory": "^35.4.6"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "dev": "FAST_REFRESH=false react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired --env=jsdom",
     "less": "lessc --js src/styles/wieldy.less public/css/style.css && lessc --js src/styles/wieldy.less public/css/style.min.css --compress -x"

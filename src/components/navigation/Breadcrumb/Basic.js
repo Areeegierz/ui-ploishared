@@ -3,7 +3,7 @@ import { Breadcrumb, Card } from "antd";
 
 const Basic = ({ slug }) => {
   return (
-    <div>
+    <div style={{ marginBottom: "10px" }}>
       <h3>{slug}</h3>
       <Breadcrumb>
         <Breadcrumb.Item>Home</Breadcrumb.Item>

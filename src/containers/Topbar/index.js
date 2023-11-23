@@ -19,6 +19,7 @@ import {
 } from "../../constants/ThemeSetting";
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../Sidebar/UserProfile";
+import { PoweroffOutlined } from "@ant-design/icons";
 
 const { Header } = Layout;
 
@@ -50,7 +51,7 @@ const Topbar = () => {
           />
         </div>
       ) : null}
-
+      {/* 
       <SearchBox
         styleName="gx-d-none gx-d-lg-block gx-lt-icon-search-bar-lg"
         placeholder="ค้นหาอะไหล่ด้วย รหัส หรือ ชื่อ อะไหล่"
@@ -76,7 +77,7 @@ const Topbar = () => {
             <i className="icon icon-search-new" />
           </span>
         </Popover>
-      </div>
+      </div> */}
 
       <ul
         className="gx-header-notifications gx-ml-auto"
@@ -92,9 +93,8 @@ const Topbar = () => {
               removeLocalstorage();
             }}
             className="gx-d-block gx-d-lg-none gx-pointer gx-mt-2"
-          >
-            ออกจากระบบ
-          </Button>
+            icon={<PoweroffOutlined />}
+          ></Button>
         )}
       </ul>
     </Header>
