@@ -30,7 +30,7 @@ const Add = () => {
         id: 0,
         image1: src,
 
-        createBy: authUser.user.id,
+        createBy: authUser.id,
         carId: 0,
         status: "A",
       };
@@ -42,7 +42,7 @@ const Add = () => {
         name: values.name,
         licensePlate: values.licensePlate,
 
-        createBy: authUser.user.id,
+        createBy: authUser.id,
       },
       img: imageList,
     };

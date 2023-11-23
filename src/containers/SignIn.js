@@ -20,7 +20,7 @@ const SignIn = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
-          localStorage.setItem("user", JSON.stringify(res.data));
+          localStorage.setItem("user", JSON.stringify(res.data.user));
 
           setLoadings(false);
           console.log(

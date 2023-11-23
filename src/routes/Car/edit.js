@@ -52,7 +52,7 @@ const Edit = ({ data }) => {
       id: values.id,
       licensePlate: values.licensePlate,
       name: values.name,
-      createBy: authUser.user.id,
+      createBy: authUser.id,
     };
     axios.put(API_URL + `Car/Update`, context).then((res) => {
       console.log(res);

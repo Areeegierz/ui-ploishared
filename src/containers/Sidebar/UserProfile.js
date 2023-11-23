@@ -33,11 +33,11 @@ const UserProfile = () => {
       >
         <Avatar style={{ backgroundColor: "#87d068" }}>
           {" "}
-          {authUser.user.name.charAt(0)}
+          {authUser.name.charAt(0)}
         </Avatar>
         <span className="gx-avatar-name">
           {" "}
-          {authUser.user.name}
+          {authUser.name}
           <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
         </span>
       </Popover>
