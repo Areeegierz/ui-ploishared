@@ -6,40 +6,51 @@ import {
   DatePicker,
   Form,
   Row,
-  Space,
+  Table,
+  Tabs,
   TimePicker,
 } from "antd";
 import Basic from "../../components/navigation/Breadcrumb/Basic";
+import Widget from "../../components/Widget";
+import { API_URL } from "../../repositories/repository";
+import axios from "axios";
+import { values } from "lodash";
+import Running from "./running";
+import Complete from "./complete";
+import Cancelled from "./cancelled";
+import All from "./all";
 
 const Index = () => {
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
+  const items = [
+    {
+      key: "1",
+      label: "การจองในวันนี้",
+      children: <Running />,
+    },
+    {
+      key: "2",
+      label: "การจองสำเร็จ",
+      children: <Complete />,
+    },
+    {
+      key: "3",
+      label: "การจองทั้งหมด",
+      children: <All />,
+    },
+    {
+      key: "4",
+      label: "รายการยกเลิก",
+      children: <Cancelled />,
+    },
+  ];
+  const onChange = (values) => {
+    console.log(values);
   };
   return (
     <>
       <Basic slug={`จองรถ`} />
-      <Row justify={"center"}>
-        <Col lg={8} xl={8} md={24} xs={24} sm={24}>
-          <Card className="mt-5" title={`ตัวเลือกการจองรถ`}>
-            <Form layout="vertical">
-              <Form.Item name={`date`} label={`วันที่ยืมรถ`}>
-                <DatePicker onChange={onChange} style={{ width: "100%" }} />
-              </Form.Item>
-              <Form.Item name={`time`} label={`เวลา รับ-คืน รถ`}>
-                <TimePicker.RangePicker
-                  status="warning"
-                  style={{ width: "100%" }}
-                />
-              </Form.Item>
-              <Row justify={"center"}>
-                <Button type="primary" htmlType="submit">
-                  ค้นหา
-                </Button>
-              </Row>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
+
+      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </>
   );
 };

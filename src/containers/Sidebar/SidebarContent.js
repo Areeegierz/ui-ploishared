@@ -69,7 +69,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
             >
               <Menu.Item key="search">
                 <NavLink
-                  exact
                   to="/"
                   style={{ color: "#E5E4E2" }}
                   activeStyle={{ color: "orange" }}
@@ -82,7 +81,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               </Menu.Item>
               <Menu.Item key="booking">
                 <NavLink
-                  to="/material"
+                  to="/booking"
                   style={{ color: "#E5E4E2" }}
                   activeStyle={{ color: "orange" }}
                 >
@@ -101,6 +100,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <i className="icon icon-widgets" />
                   <span>
                     <IntlMessages id="บัญชีผู้ใช้งาน" />
+                  </span>
+                </NavLink>
+              </Menu.Item>{" "}
+              <Menu.Item key="Car">
+                <NavLink
+                  style={{ color: "#E5E4E2" }}
+                  activeStyle={{ color: "orange" }}
+                  to="/Car"
+                >
+                  <i className="icon icon-widgets" />
+                  <span>
+                    <IntlMessages id="จัดการรถ" />
                   </span>
                 </NavLink>
               </Menu.Item>{" "}

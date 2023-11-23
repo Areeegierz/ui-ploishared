@@ -47,7 +47,7 @@ const SidebarLogo = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           <img
             alt="logo2"
             src={"/assets/images/landscape-logo.5445c605292f30db26ae.png"}
-            width={"90%"}
+            width={"50%"}
           />
         )}
       </Link>

@@ -1,6 +1,6 @@
 import { Button, Form, Input, Row, message } from "antd";
 import axios from "axios";
-import { API_URL } from "../../repository/repository";
+import { API_URL } from "../../repositories/repository";
 import { useForm } from "antd/lib/form/Form";
 import { useEffect } from "react";
 
@@ -9,7 +9,7 @@ const Edit = ({ data }) => {
     getData(data.id);
   }, [data]);
   function getData(id) {
-    axios.get(API_URL + `/User/GetById?id=${id}`).then((res) => {
+    axios.get(API_URL + `User/GetById?id=${id}`).then((res) => {
       form.setFieldsValue(res.data.user);
     });
   }
@@ -46,7 +46,7 @@ const Edit = ({ data }) => {
           },
         ]}
       >
-        <Input addonAfter="@SCG.com" placeholder="ชื่อผู้ใช้งาน" />
+        <Input addonAfter="@scg.com" placeholder="ชื่อผู้ใช้งาน" />
       </Form.Item>
       <Form.Item
         name={`password`}
@@ -106,7 +106,7 @@ const Edit = ({ data }) => {
           },
         ]}
       >
-        <Input addonAfter="@SCG.com" placeholder="ผู้อนุมัติ" />
+        <Input addonAfter="@scg.com" placeholder="ผู้อนุมัติ" />
       </Form.Item>
       <Row justify={"center"}>
         <Button type="primary" htmlType="submit">

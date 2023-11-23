@@ -3,6 +3,7 @@
 body {
   padding: 0;
   margin: 0;
+  font-family: "CPAC_MODERN_MEDIUM" !important;
 }
 
 #app-site {

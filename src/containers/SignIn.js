@@ -1,136 +1,135 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  Row,
-  Space,
-  message,
-} from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import {
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
-  userSignIn,
-  userTwitterSignIn,
-} from "../appRedux/actions";
-
-import IntlMessages from "util/IntlMessages";
-import CircularProgress from "../components/CircularProgress";
-import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
-import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
-import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
-import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
+import { Form, Input, Button, Row, Card, message } from "antd";
 import axios from "axios";
-import { API_URL } from "../repository/repository";
-
+import { useState } from "react";
+import { API_URL } from "../repositories/repository";
+import logo from "../../src/assets/image/ploishared-logo.png";
 const SignIn = () => {
-  const dispatch = useDispatch();
-  const { loader, alertMessage, showMessage, authUser } = useSelector(
-    ({ auth }) => auth
-  );
-  const history = useHistory();
+  const [loadings, setLoadings] = useState(false);
+  const onFinish = (value) => {
+    setLoadings(true);
 
-  useEffect(() => {
-    if (showMessage) {
-      setTimeout(() => {
-        dispatch(hideMessage());
-      }, 100);
-    }
-    if (authUser !== null) {
-      history.push("/");
-    }
-  });
-
-  const onFinishFailed = (errorInfo) => {};
-
-  const onFinish = (values) => {
-    var context = {
-      username: values.username,
-      password: values.password,
+    message.loading("กำลังเข้าสู่ระบบ");
+    const obj = {
+      username: value.username,
+      password: value.password,
       userType: "CPAC",
     };
+
     axios
-      .post(API_URL + `/Authentication/Authentication`, context)
+      .post(API_URL + `Authentication/Authentication`, obj)
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        message.success(`เข้าสู่ระบบสำเร็จ`);
-        setTimeout(() => window.location.assign("/"), 1000);
+        if (res.status === 200) {
+          console.log(res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+
+          setLoadings(false);
+          console.log(
+            `เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ ${res.data.user.name}`,
+            res.status
+          );
+          message.success(
+            `เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ ${res.data.user.name} `,
+            1.5
+          );
+          setTimeout(() => window.location.assign("/"), 1000);
+        } else {
+          message.error(res.status);
+          setLoadings(false);
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          setLoadings(false);
+          if (err.response.status === 404) {
+            console.log("ข้อมูลลงชื่อเข้าใช้ไม่ถูกต้อง", err.response.status);
+            message.error("ข้อมูลลงชื่อเข้าใช้ไม่ถูกต้อง");
+          } else if (err.response.status === 500) {
+            console.log(
+              "ไม่สามารถติดต่อกับ Server ได้กรุณาตรวจสอบการเชื่อมต่อ หรือเว้นระยะทำรายการ",
+              err.response.status
+            );
+
+            message.error(
+              "ไม่สามารถติดต่อกับ Server ได้กรุณาตรวจสอบการเชื่อมต่อ หรือเว้นระยะทำรายการ",
+              5.0
+            );
+          } else {
+            message.error("เกิดข้อผิดพลาดที่ไม่รู้จัก");
+            console.log("เกิดข้อผิดพลาดที่ไม่รู้จัก", err.response.status);
+          }
+          setLoadings(false);
+        }
       });
   };
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  return (
-    <div className="gx-app-login-wrap contrainer">
-      <Row justify={"center"} align={"middle"}>
-        <Col lg={6} xl={6} md={24} xs={24} sm={24}>
-          <Card>
-            <Form
-              initialValues={{ remember: true }}
-              name="basic"
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              className="gx-signin-form gx-form-row0"
-            >
-              <Row justify={"center"} className="mb-5">
-                <img
-                  src={"/assets/images/landscape-logo.5445c605292f30db26ae.png"}
-                />
-              </Row>
-              <Form.Item
-                rules={[
-                  {
-                    required: true,
-                    message: "The input is not valid E-mail!",
-                  },
-                ]}
-                name="username"
-              >
-                <Input addonAfter="@SCG.com" placeholder="Username" />
-              </Form.Item>
-              <Form.Item
-                rules={[
-                  { required: true, message: "Please input your Password!" },
-                ]}
-                name="password"
-              >
-                <Input.Password placeholder="password" />
-              </Form.Item>
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
 
-              {/* <Form.Item>
-                <Checkbox>
-                  <IntlMessages id="appModule.iAccept" />
-                </Checkbox>
-                <span className="gx-signup-form-forgot gx-link">
-                  <IntlMessages id="appModule.termAndCondition" />
-                </span>
+  return (
+    <Row
+      type="flex"
+      justify="center"
+      align="middle"
+      style={{ minHeight: "100vh" }}
+    >
+      <Card
+        style={{
+          width: "400px",
+          boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)",
+        }}
+      >
+        <Form.Item className="align-center">
+          <Row type="flex" justify="center" align="middle">
+            <img src={logo} align="middle" alt="signinlogo" width={"300px"} />
+            <span>เข้าสู่ระบบด้วย ชื่อผู้ใช้งาน และ รหัสผ่านของ SCG</span>
+          </Row>
+        </Form.Item>
+        <Form
+          initialValues={{ remember: true }}
+          name="basic"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          className="gx-signin-form gx-form-row0"
+        >
+          <Form.Item
+            // initialValue="demo@example.com"
+            rules={[{ required: true, message: "กรุณากรอกชื่อผู้ใช้" }]}
+            name="username"
+          >
+            <Input placeholder={"ชื่อผู้ใช้"} addonAfter={"@scg.com"} />
+          </Form.Item>
+          <Form.Item
+            // initialValue="demo#123"
+            rules={[{ required: true, message: "กรุณากรอกรหัสผ่าน" }]}
+            name="password"
+          >
+            <Input type="password" placeholder="รหัสผ่าน" />
+          </Form.Item>
+          {/* <Form.Item>
+                <Checkbox><IntlMessages id="appModule.iAccept"/></Checkbox>
+                <span className="gx-signup-form-forgot gx-link"><IntlMessages
+                  id="appModule.termAndCondition"/></span>
               </Form.Item> */}
-              <Row justify={"center"}>
-                <Button type="primary" className="gx-mb-0" htmlType="submit">
-                  เข้าสูระบบ
-                </Button>
-              </Row>
-            </Form>
-            {loader ? (
-              <div className="gx-loader-view">
-                <CircularProgress />
-              </div>
-            ) : null}
-            {showMessage ? message.error(alertMessage.toString()) : null}
-          </Card>
-        </Col>
-      </Row>
-    </div>
+          <Form.Item className="align-center">
+            <Row
+              type="flex"
+              justify="center"
+              align="middle"
+              className="container"
+            >
+              <Button
+                loading={loadings}
+                type="primary"
+                className="gx-mb-0"
+                htmlType="submit"
+              >
+                เข้าสู่ระบบ
+              </Button>
+            </Row>
+          </Form.Item>
+        </Form>
+      </Card>
+    </Row>
   );
 };
-
 export default SignIn;

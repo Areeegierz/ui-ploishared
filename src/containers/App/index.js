@@ -28,22 +28,24 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
   THEME_TYPE_DARK,
 } from "../../constants/ThemeSetting";
-import { authUser } from "../../repository/repository";
+import { authUser } from "../../repositories/repository";
 
 const RestrictedRoute = ({ component: Component, location, ...rest }) => (
   <Route
     {...rest}
-    render={(props) =>
-      authUser ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/signin",
-            state: { from: location },
-          }}
-        />
-      )
+    render={
+      (props) =>
+        authUser ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/signin",
+              state: { from: location },
+            }}
+          />
+        )
+      // <Component {...props} />
     }
   />
 );

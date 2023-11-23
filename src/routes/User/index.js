@@ -1,22 +1,9 @@
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Col,
-  DatePicker,
-  Form,
-  Modal,
-  Popconfirm,
-  Row,
-  Space,
-  Table,
-  TimePicker,
-  message,
-} from "antd";
+import { Button, Modal, Popconfirm, Table, message } from "antd";
 import Basic from "../../components/navigation/Breadcrumb/Basic";
+import Widget from "../../components/Widget/index";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../../repository/repository";
+import { API_URL } from "../../repositories/repository";
 import { DeleteOutlined, FormOutlined, PlusOutlined } from "@ant-design/icons";
 import Add from "./add";
 import Edit from "./edit";
@@ -26,11 +13,14 @@ const Index = () => {
     getData();
   }, []);
   function getData() {
-    axios.get(API_URL + `/User/Get`).then((res) => {
+    setTableLoading(true);
+    axios.get(API_URL + `User/Get`).then((res) => {
       setUser(res.data.user);
+      setTableLoading(false);
     });
   }
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tableLoading, setTableLoading] = useState();
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -81,7 +71,7 @@ const Index = () => {
             cancelText="No"
             onConfirm={() => {
               axios
-                .delete(API_URL + "/user/Remove?id=" + record.id)
+                .delete(API_URL + "user/Remove?id=" + record.id)
                 .then((res) => {
                   message.success(`Delete ${record.name} Successfully!`);
                   getData();
@@ -109,8 +99,8 @@ const Index = () => {
   return (
     <>
       <Basic slug={`บัญชีผู้ใช้งาน`} />
-      <Card
-        title={`ราการบัญชีผู้ใช้งาน`}
+      <Widget
+        title={<h3>บัญชีผู้ใช้งาน</h3>}
         className="mt-5"
         extra={
           <a className="btn btn-primary" onClick={showModal}>
@@ -118,8 +108,8 @@ const Index = () => {
           </a>
         }
       >
-        <Table dataSource={user} columns={columns} />
-      </Card>
+        <Table loading={tableLoading} dataSource={user} columns={columns} />
+      </Widget>
 
       <Modal
         title="แบบฟอร์มเพิ่มข้อมูลผู้ใช้งาน"
