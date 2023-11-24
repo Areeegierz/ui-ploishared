@@ -7,6 +7,7 @@ import {
   Row,
   Skeleton,
   Spin,
+  Tag,
   message,
 } from "antd";
 import Basic from "../../components/navigation/Breadcrumb/Basic";
@@ -84,62 +85,53 @@ const Index = () => {
         <Row>
           {car ? (
             car.map((item) => (
-              <Col lg={12} xl={12} md={24} xs={24} sm={24}>
-                <Widget styleName="gx-p-lg-1">
+              <div className="col-md-4 p-3">
+                <div className="card p-3" style={{ borderRadius: "22px" }}>
                   <Row>
-                    <Col xl={6} lg={10} md={10} sm={10} xs={24}>
+                    <Col md={10} sm={10} xl={8} lg={12} xs={10}>
                       <Image
-                        width={80}
                         className="gx-rounded-lg"
-                        alt="..."
                         src={BASE_URL + item.image}
+                        width={90}
+                        height={90}
+                        alt="..."
                       />
                     </Col>
-                    <Col xl={18} lg={14} md={14} sm={14} xs={24}>
-                      <Row className="p-2">
-                        <div className="gx-fnd-content">
-                          <h2 className="gx-text-uppercase gx-text-black gx-font-weight-bold gx-fnd-title">
-                            {item.licensePlate}
-                          </h2>
-                          <p>{item.name}</p>
-                        </div>
-                      </Row>
-                    </Col>
-                    <Col span={24} style={{ justifyContent: "right" }}>
-                      <Row className="p-2">
-                        <div className="gx-fnd-content">
-                          <Popconfirm
-                            onConfirm={() => confirm(item)}
-                            title={`พี่อุ้มต้องการลบ ${item.licensePlate} ?`}
-                            description={`Are you sure to delete ${item.licensePlate}?`}
-                            icon={
-                              <QuestionCircleOutlined
-                                style={{
-                                  color: "red",
-                                }}
-                              />
-                            }
-                          >
-                            <Button icon={<DeleteOutlined />} danger></Button>
-                          </Popconfirm>
-
-                          <Button
-                            style={{ color: "#286efb" }}
-                            icon={<FormOutlined />}
-                            type="link"
-                            onClick={() => {
-                              editModal(item);
+                    <Col md={14} sm={14} xl={16} lg={12} xs={14}>
+                      <Tag
+                        className="gx-rounded-xs gx-text-uppercase"
+                        color="#06BB8A"
+                      >
+                        {item.licensePlate}
+                      </Tag>
+                      <p className="gx-mb-2">{item.name}</p>
+                      <FormOutlined
+                        onClick={() => editModal(item)}
+                        style={{ color: "blue" }}
+                      />{" "}
+                      <Popconfirm
+                        onConfirm={() => confirm(item)}
+                        title={`พี่อุ้มต้องการลบ ${item.licensePlate} ?`}
+                        description={`Are you sure to delete ${item.licensePlate}?`}
+                        icon={
+                          <QuestionCircleOutlined
+                            style={{
+                              color: "red",
                             }}
-                          ></Button>
-                        </div>
-                      </Row>
+                          />
+                        }
+                      >
+                        <DeleteOutlined style={{ color: "red" }} />
+                      </Popconfirm>
                     </Col>
                   </Row>
-                </Widget>
-              </Col>
+                </div>
+              </div>
             ))
           ) : (
-            <Skeleton />
+            <div>
+              <Skeleton />
+            </div>
           )}
         </Row>
       </Widget>

@@ -69,7 +69,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
             >
               <Menu.Item key="search">
                 <NavLink
-                  to="/"
+                  to="/search"
                   style={{ color: "#E5E4E2" }}
                   activeStyle={{ color: "orange" }}
                 >

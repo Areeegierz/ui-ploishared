@@ -66,7 +66,6 @@ const Edit = ({ data }) => {
   };
   return (
     <>
-      {JSON.stringify(data)}
       <Form layout="vertical" onFinish={onFinish} form={form}>
         <Form.Item name={`id`} label={`id`} hidden="true"></Form.Item>
         <Form.Item

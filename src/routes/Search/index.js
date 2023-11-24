@@ -8,6 +8,7 @@ import {
   List,
   Modal,
   Row,
+  Skeleton,
   Tag,
   TimePicker,
 } from "antd";
@@ -108,15 +109,16 @@ const Index = () => {
   return (
     <>
       <Basic slug={`ค้นหารถ`} />
-      {JSON.stringify(thisStart)}
-      {JSON.stringify(thisEnd)}
+
+      {/* {JSON.stringify(thisStart)}
+      {JSON.stringify(thisEnd)} */}
       <Row justify={"center"}>
         <Col span={24}>
           <Widget className="mt-5" title={<h3>ตัวเลือกการจองรถ</h3>}>
             <Form onFinish={onAdd} layout="vertical">
               <div className="row">
                 <div className="col-md-3">
-                  <Form.Item name={`startdate`} label={`วันที่ยืม`}>
+                  <Form.Item name={`startdate`} label={`วันที่จอง`}>
                     <DatePicker
                       onChange={onChangeStartDate}
                       style={{ width: "100%" }}
@@ -124,7 +126,7 @@ const Index = () => {
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
-                  <Form.Item name={`starttime`} label={`เวลาที่ยืม`}>
+                  <Form.Item name={`starttime`} label={`เวลาที่จอง`}>
                     <TimePicker
                       onChange={onChangeStartTime}
                       style={{ width: "100%" }}
@@ -140,7 +142,7 @@ const Index = () => {
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
-                  <Form.Item name={`endtime`} label={`เวลาคืน`}>
+                  <Form.Item name={`endtime`} label={`เวลาที่คืน`}>
                     <TimePicker
                       onChange={onChangeEndTime}
                       style={{ width: "100%" }}
@@ -163,48 +165,52 @@ const Index = () => {
       </Row>
 
       <div className="row">
-        {car
-          ? car.map((item) => (
-              <div className="col-md-4 p-3">
-                <div className="card p-3" style={{ borderRadius: "22px" }}>
-                  <div className="row">
-                    <div className="col-md-4 text-center">
-                      <img
-                        className="gx-rounded-lg"
-                        src={BASE_URL + item.image}
-                        width={100}
-                        height={100}
-                        alt="..."
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <Tag
-                        className="gx-rounded-xs gx-text-uppercase"
-                        color="#06BB8A"
-                      >
-                        {item.licensePlate}
-                      </Tag>
-                      <p className="gx-mb-2">{item.name}</p>
+        {car ? (
+          car.map((item) => (
+            <div className="col-md-4 p-3">
+              <div className="card p-3" style={{ borderRadius: "22px" }}>
+                <div className="row">
+                  <div className="col-md-4 text-center">
+                    <img
+                      className="gx-rounded-lg"
+                      src={BASE_URL + item.image}
+                      width={100}
+                      height={100}
+                      alt="..."
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <Tag
+                      className="gx-rounded-xs gx-text-uppercase"
+                      color="#06BB8A"
+                    >
+                      {item.licensePlate}
+                    </Tag>
+                    <p className="gx-mb-2">{item.name}</p>
 
-                      <u className="gx-text-primary gx-text-truncate gx-mt-sm-auto gx-mb-0 gx-pointer">
-                        {/* <i
+                    <u className="gx-text-primary gx-text-truncate gx-mt-sm-auto gx-mb-0 gx-pointer">
+                      {/* <i
                           className={`icon icon-calenda gx-fs-xxl gx-ml-1 gx-ml-sm-2 gx-d-inline-flex gx-vertical-align-middle`}
                         /> */}
-                        <i class="icon icon-calendar"></i>
-                        <span
-                          className="ml-3"
-                          style={{ marginLeft: "10px" }}
-                          onClick={() => bookingModal(item)}
-                        >
-                          จอง
-                        </span>
-                      </u>
-                    </div>
+                      <i class="icon icon-calendar"></i>
+                      <span
+                        className="ml-3"
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => bookingModal(item)}
+                      >
+                        จอง
+                      </span>
+                    </u>
                   </div>
                 </div>
               </div>
-            ))
-          : null}
+            </div>
+          ))
+        ) : (
+          <div>
+            <Skeleton />
+          </div>
+        )}
       </div>
       <Modal
         title="แบบฟอร์มการจองรถ"

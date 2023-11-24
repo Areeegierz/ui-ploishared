@@ -11,15 +11,11 @@ const App = ({ match }) => {
     >
       <Switch>
         <Route
-          path={`${match.url}`}
-          exact
-          component={asyncComponent(() => import("./Search/index"))}
-        />
-        {/* <Route
           path={`${match.url}Search`}
           exact
           component={asyncComponent(() => import("./Search/index"))}
-        /> */}
+        />
+
         <Route
           path={`${match.url}User`}
           exact
