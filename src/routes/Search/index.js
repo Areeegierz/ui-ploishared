@@ -23,6 +23,7 @@ import { func } from "prop-types";
 import Booking from "./booking";
 import moment from "moment";
 import { start } from "nprogress";
+import { now } from "lodash";
 
 const Index = () => {
   const [listLoading, setListLoading] = useState();
@@ -120,6 +121,7 @@ const Index = () => {
                 <div className="col-md-3">
                   <Form.Item name={`startdate`} label={`วันที่จอง`}>
                     <DatePicker
+                      disabledDate={(d) => !d || d.isSameOrBefore(Date(now))}
                       onChange={onChangeStartDate}
                       style={{ width: "100%" }}
                     />
@@ -128,6 +130,7 @@ const Index = () => {
                 <div className="col-md-3">
                   <Form.Item name={`starttime`} label={`เวลาที่จอง`}>
                     <TimePicker
+                      format={"HH:mm"}
                       onChange={onChangeStartTime}
                       style={{ width: "100%" }}
                     />
@@ -136,14 +139,17 @@ const Index = () => {
                 <div className="col-md-3">
                   <Form.Item name={`enddate`} label={`วันที่คืน`}>
                     <DatePicker
+                      disabledDate={(d) => !d || d.isSameOrBefore(startDate)}
                       onChange={onChangeEndDate}
                       style={{ width: "100%" }}
+                      zz
                     />
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
                   <Form.Item name={`endtime`} label={`เวลาที่คืน`}>
                     <TimePicker
+                      format={"HH:mm"}
                       onChange={onChangeEndTime}
                       style={{ width: "100%" }}
                     />
