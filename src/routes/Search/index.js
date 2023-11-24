@@ -20,11 +20,19 @@ import Link from "antd/lib/typography/Link";
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
 import { func } from "prop-types";
 import Booking from "./booking";
+import moment from "moment";
+import { start } from "nprogress";
 
 const Index = () => {
   const [listLoading, setListLoading] = useState();
   const [dataModal, setDataModal] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+  const [thisStart, setThisStart] = useState();
+  const [thisEnd, setThisEnd] = useState();
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -56,9 +64,52 @@ const Index = () => {
     setDataModal(item);
     setIsModalOpen(true);
   }
+  const onChangeStartDate = (e) => {
+    console.log(e);
+    console.log(moment(e).format("YYYY-MM-DD"));
+    setStartDate(moment(e).format("YYYY-MM-DD"));
+    if (e && startTime) {
+      setThisStart(moment(e).format("YYYY-MM-DD") + " " + startTime);
+      console.log(
+        "start : " + moment(e).format("YYYY-MM-DD") + " " + startTime
+      );
+    }
+  };
+  const onChangeStartTime = (e) => {
+    console.log(e);
+    console.log(moment(e).format("HH:mm:ss"));
+
+    setStartTime(moment(e).format("HH:mm:ss"));
+    if (e && startDate) {
+      setThisStart(startDate + " " + moment(e).format("HH:mm:ss"));
+      console.log("start : " + startDate + " " + moment(e).format("HH:mm:ss"));
+    }
+  };
+  const onChangeEndDate = (e) => {
+    console.log(e);
+    console.log(moment(e).format("YYYY-MM-DD"));
+
+    setEndDate(moment(e).format("YYYY-MM-DD"));
+    if (e && endTime) {
+      setThisEnd(moment(e).format("YYYY-MM-DD") + " " + endTime);
+      console.log("End : " + moment(e).format("YYYY-MM-DD") + " " + endTime);
+    }
+  };
+  const onChangeEndTime = (e) => {
+    console.log(e);
+    console.log(moment(e).format("HH:mm:ss"));
+
+    setEndTime(moment(e).format("HH:mm:ss"));
+    if (e && endDate) {
+      setThisEnd(endDate + " " + moment(e).format("HH:mm:ss"));
+      console.log("start : " + endDate + " " + moment(e).format("HH:mm:ss"));
+    }
+  };
   return (
     <>
       <Basic slug={`ค้นหารถ`} />
+      {JSON.stringify(thisStart)}
+      {JSON.stringify(thisEnd)}
       <Row justify={"center"}>
         <Col span={24}>
           <Widget className="mt-5" title={<h3>ตัวเลือกการจองรถ</h3>}>
@@ -66,22 +117,34 @@ const Index = () => {
               <div className="row">
                 <div className="col-md-3">
                   <Form.Item name={`startdate`} label={`วันที่ยืม`}>
-                    <DatePicker onChange={onChange} style={{ width: "100%" }} />
+                    <DatePicker
+                      onChange={onChangeStartDate}
+                      style={{ width: "100%" }}
+                    />
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
                   <Form.Item name={`starttime`} label={`เวลาที่ยืม`}>
-                    <TimePicker onChange={onChange} style={{ width: "100%" }} />
+                    <TimePicker
+                      onChange={onChangeStartTime}
+                      style={{ width: "100%" }}
+                    />
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
                   <Form.Item name={`enddate`} label={`วันที่คืน`}>
-                    <DatePicker onChange={onChange} style={{ width: "100%" }} />
+                    <DatePicker
+                      onChange={onChangeEndDate}
+                      style={{ width: "100%" }}
+                    />
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
                   <Form.Item name={`endtime`} label={`เวลาคืน`}>
-                    <TimePicker onChange={onChange} style={{ width: "100%" }} />
+                    <TimePicker
+                      onChange={onChangeEndTime}
+                      style={{ width: "100%" }}
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -143,8 +206,13 @@ const Index = () => {
             ))
           : null}
       </div>
-      <Modal title="แบบฟอร์มการจองรถ" open={isModalOpen} footer={false}>
-        <Booking data={dataModal} />
+      <Modal
+        title="แบบฟอร์มการจองรถ"
+        open={isModalOpen}
+        footer={false}
+        onCancel={handleCancel}
+      >
+        <Booking data={dataModal} start={thisStart} end={thisEnd} />
       </Modal>
     </>
   );
