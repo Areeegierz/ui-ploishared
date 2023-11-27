@@ -19,6 +19,7 @@ import Running from "./running";
 import Complete from "./complete";
 import Cancelled from "./cancelled";
 import All from "./all";
+import Wait from "./wait";
 
 const Index = () => {
   const items = [
@@ -29,18 +30,23 @@ const Index = () => {
     },
     {
       key: "2",
-      label: "การจองสำเร็จ",
-      children: <Complete />,
+      label: "การจองรออนุมัติ",
+      children: <Wait />,
     },
     {
       key: "3",
-      label: "การจองทั้งหมด",
-      children: <All />,
+      label: "การจองสำเร็จ",
+      children: <Complete />,
     },
     {
       key: "4",
       label: "รายการยกเลิก",
       children: <Cancelled />,
+    },
+    {
+      key: "5",
+      label: "การจองทั้งหมด",
+      children: <All />,
     },
   ];
   const onChange = (values) => {
@@ -50,7 +56,7 @@ const Index = () => {
     <>
       <Basic slug={`จองรถ`} />
 
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <Tabs defaultActiveKey="4" items={items} onChange={onChange} />
     </>
   );
 };

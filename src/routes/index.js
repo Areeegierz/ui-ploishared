@@ -27,6 +27,11 @@ const App = ({ match }) => {
         />
 
         <Route
+          path={`${match.url}Booking/:id`}
+          exact
+          component={asyncComponent(() => import("./Booking/detail"))}
+        />
+        <Route
           path={`${match.url}Booking`}
           exact
           component={asyncComponent(() => import("./Booking/index"))}

@@ -71,7 +71,7 @@ const Edit = ({ data }) => {
         <Form.Item name={`id`} label={`id`} hidden="true"></Form.Item>
         <Form.Item
           name={`licensePlate`}
-          label={`ทะเบียนรถ`}
+          label={`รายการรถที่จอง`}
           rules={[
             {
               required: true,
@@ -79,7 +79,7 @@ const Edit = ({ data }) => {
             },
           ]}
         >
-          <Input placeholder="ทะเบียนรถ" />
+          <Input placeholder="รายการรถที่จอง" />
         </Form.Item>
 
         <Form.Item

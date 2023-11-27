@@ -7,15 +7,17 @@ import { useEffect, useState } from "react";
 import { takeEvery } from "redux-saga/effects";
 import moment from "moment";
 import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
-const All = () => {
+const Wait = () => {
   const [tableLoading, setTableLoading] = useState();
   const [tableData, setTableData] = useState([]);
   const getTableData = () => {
     setTableLoading(true);
-    axios.get(API_URL + `Booking/Get?uid=${authUser.id}`).then((res) => {
-      setTableData(res.data.booking);
-      setTableLoading(false);
-    });
+    axios
+      .get(API_URL + `Booking/Get?uid=${authUser.id}&status=WA`)
+      .then((res) => {
+        setTableData(res.data.booking);
+        setTableLoading(false);
+      });
   };
   useEffect(() => {
     getTableData();
@@ -93,4 +95,4 @@ const All = () => {
     </>
   );
 };
-export default All;
+export default Wait;

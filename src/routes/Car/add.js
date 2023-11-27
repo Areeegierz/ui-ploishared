@@ -92,7 +92,7 @@ const Add = () => {
     <Form layout="vertical" onFinish={onFinish} form={form}>
       <Form.Item
         name={`licensePlate`}
-        label={`ทะเบียนรถ`}
+        label={`รายการรถที่จอง`}
         rules={[
           {
             required: true,
@@ -100,7 +100,7 @@ const Add = () => {
           },
         ]}
       >
-        <Input placeholder="ทะเบียนรถ" />
+        <Input placeholder="รายการรถที่จอง" />
       </Form.Item>
 
       <Form.Item

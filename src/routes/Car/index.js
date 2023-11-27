@@ -73,7 +73,7 @@ const Index = () => {
     <>
       <Basic slug={`จัดการรถ`} />
       <Widget
-        title={<h3>รายการรถในระบบ</h3>}
+        title={<h3>รายการรถที่จองในระบบ</h3>}
         className="mt-5"
         extra={
           <a className="btn btn-primary" onClick={showModal}>
