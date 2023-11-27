@@ -7,6 +7,8 @@ const Booking = ({ data, start, end }) => {
   const [form] = Form.useForm();
   const [province, setProvince] = useState([]);
   const [user, setUser] = useState([]);
+  const [buttonLoading, setButtonLoading] = useState();
+  const [formLoading, setFormLoading] = useState();
 
   useEffect(() => {
     if (data) {
@@ -25,11 +27,17 @@ const Booking = ({ data, start, end }) => {
   function getUser() {
     axios.get(API_URL + `User/GetById?id=${authUser.id}`).then((res) => {
       setUser(res.data.user);
-      form.setFieldsValue({ phone: res.data.user.phone });
+      setFormLoading(true);
+      form.setFieldsValue({
+        phone: res.data.user.phone,
+        approver: res.data.user.approver,
+      });
+      setFormLoading(false);
     });
   }
 
   const onFinish = (values) => {
+    setButtonLoading(true);
     console.log(values);
     var context = {
       id: 0,
@@ -51,10 +59,14 @@ const Booking = ({ data, start, end }) => {
       .post(API_URL + `Booking/Create?phone=${values.phone}`, context)
       .then((res) => {
         message.success(`การจองสำเร็จ กรุณารออนุมัติ`);
+        setButtonLoading(false);
+
         setTimeout(() => window.location.reload(), 2000);
       });
   };
-
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
   return (
     <>
       <Form
@@ -66,17 +78,50 @@ const Booking = ({ data, start, end }) => {
         onFinish={onFinish}
         className="gx-signin-form gx-form-row0"
       >
-        <h5>ข้อมูลผู้อนุมัติ</h5>
-        <hr style={{ backgroundColor: "blue" }} />
-
-        <Form.Item name="approver" label="อีเมลผู้อนุมัติ">
-          <Input />
-        </Form.Item>
-
         <h5>ข้อมูลผู้จองรถ</h5>
         <hr style={{ backgroundColor: "blue" }} />
-        <Form.Item name="target" label="จังหวัดที่เดินทาง">
-          <Select placeholder={`กรุณาเลือกจังหวัดปลายทาง`}>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+              message: "โปรดระบุชื่อ-สกุล",
+            },
+          ]}
+          name="name"
+          label="ชื่อ-สกุล"
+        >
+          <Input disabled />
+        </Form.Item>
+
+        <Form.Item
+          rules={[
+            {
+              required: true,
+              message: "โปรดระบุเบอร์โทร",
+            },
+          ]}
+          name="phone"
+          label="เบอร์โทรศัพท์"
+        >
+          <Input type="tel" />
+        </Form.Item>
+        <Form.Item
+          rules={[
+            {
+              required: true,
+              message: "โปรดเลือกจังหวัดที่เดินทาง",
+            },
+          ]}
+          name="target"
+          label="จังหวัดที่เดินทาง"
+        >
+          <Select
+            allowClear
+            showSearch
+            optionFilterProp="children"
+            onSearch={onSearch}
+            placeholder={`กรุณาเลือกจังหวัดปลายทาง`}
+          >
             {province.map((i) => (
               <Select.Option key={i.sNo} value={i.sNo}>
                 {i.nameInThai}
@@ -84,27 +129,44 @@ const Booking = ({ data, start, end }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="name" label="ชื่อ-สกุล">
-          <Input />
-        </Form.Item>
-        {/* <Form.Item name="EmpId" label="เลขประจำตัวพนักงาน">
-          <Input />
-        </Form.Item>
-        <Form.Item name="email" label="Email">
-          <Input />
-        </Form.Item> */}
-        <Form.Item name="phone" label="เบอร์โทรศัพท์">
-          <Input />
-        </Form.Item>
-        <Form.Item name="costCenter" label="CostCenter">
+
+        <Form.Item
+          rules={[
+            {
+              required: true,
+              message: "โปรดระบุ CostCenter",
+            },
+          ]}
+          name="costCenter"
+          label="CostCenter"
+        >
           <Input />
         </Form.Item>
         <Form.Item name="note" label="หมายเหตุ">
           <Input />
         </Form.Item>
+        <h5>ข้อมูลผู้อนุมัติ</h5>
+        <hr style={{ backgroundColor: "blue" }} />
+
+        <Form.Item
+          rules={[
+            {
+              required: true,
+              message: "โปรดระบุอีเมลผู้อนุมัติการจอง",
+            },
+          ]}
+          name="approver"
+          label="อีเมลผู้อนุมัติ"
+        >
+          <Input addonAfter={"@scg.com"} />
+        </Form.Item>
 
         <Row justify={`center`}>
-          <Button htmlType="submit" className="btn btn-primary">
+          <Button
+            loading={buttonLoading}
+            htmlType="submit"
+            className="btn btn-primary"
+          >
             บันทึก
           </Button>
         </Row>

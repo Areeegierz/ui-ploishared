@@ -33,11 +33,11 @@ const Add = () => {
         rules={[
           {
             required: true,
-            message: "The input your username!",
+            message: "โปรดระบุชื่อผู้ใช้งาน",
           },
         ]}
       >
-        <Input addonAfter="@SCG.com" placeholder="ชื่อผู้ใช้งาน" />
+        <Input addonAfter="@scg.com" placeholder="ชื่อผู้ใช้งาน" />
       </Form.Item>
       <Form.Item
         name={`password`}
@@ -45,7 +45,7 @@ const Add = () => {
         rules={[
           {
             required: true,
-            message: "The input your password!",
+            message: "โปรดระบุรหัสผ่าน",
           },
         ]}
       >
@@ -58,7 +58,7 @@ const Add = () => {
         rules={[
           {
             required: true,
-            message: "The input your code!",
+            message: "โปรดระบุรหัสพนักงาน",
           },
         ]}
       >
@@ -70,7 +70,7 @@ const Add = () => {
         rules={[
           {
             required: true,
-            message: "The input your fullname!",
+            message: "โปรดระบุชื่อ-สกุล",
           },
         ]}
       >
@@ -82,7 +82,7 @@ const Add = () => {
         rules={[
           {
             required: true,
-            message: "The input your phone!",
+            message: "โปรดระบุเบอร์โทร",
           },
         ]}
       >
@@ -98,7 +98,7 @@ const Add = () => {
           },
         ]}
       >
-        <Input addonAfter="@SCG.com" placeholder="ผู้อนุมัติ" />
+        <Input addonAfter="@scg.com" placeholder="ผู้อนุมัติ" />
       </Form.Item>
       <Row justify={"center"}>
         <Button type="primary" htmlType="submit">
