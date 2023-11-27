@@ -75,7 +75,7 @@ const Index = () => {
     <>
       <Basic slug={`จัดการรถ`} />
       <Widget
-        title={<h3>รายการรถที่จองในระบบ</h3>}
+        title={<h3>รายการรถในระบบ</h3>}
         className="mt-5"
         extra={
           <a className="btn btn-primary" onClick={showModal}>
@@ -84,7 +84,9 @@ const Index = () => {
         }
       >
         <Row>
-          {car ? (
+          {car[0] == null ? (
+            <Skeleton active />
+          ) : (
             car.map((item) => (
               <div className="col-md-4 p-3">
                 <div className="card p-3" style={{ borderRadius: "22px" }}>
@@ -131,10 +133,6 @@ const Index = () => {
                 </div>
               </div>
             ))
-          ) : (
-            <div>
-              <Skeleton />
-            </div>
           )}
         </Row>
       </Widget>

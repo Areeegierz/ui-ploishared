@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import {
-  Button,
   Col,
   DatePicker,
   Form,
-  Image,
-  List,
   Modal,
   Row,
   Skeleton,
@@ -16,16 +14,15 @@ import Basic from "../../components/navigation/Breadcrumb/Basic";
 import Widget from "../../components/Widget";
 import axios from "axios";
 import { API_URL, BASE_URL } from "../../repositories/repository";
-import Detail from "./detail";
-import Link from "antd/lib/typography/Link";
-import { NavLink } from "react-router-dom/cjs/react-router-dom";
-import { func } from "prop-types";
+
 import Booking from "./booking";
 import moment from "moment";
-import { start } from "nprogress";
+
 import { now } from "lodash";
+import { useForm } from "antd/lib/form/Form";
 
 const Index = () => {
+  const [form] = useForm();
   const [listLoading, setListLoading] = useState();
   const [dataModal, setDataModal] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,6 +42,12 @@ const Index = () => {
     console.log(date, dateString);
   };
   const onAdd = (values) => {
+    if (
+      values.enddate - values.startdate > 1 &&
+      values.endtime - values.starttime === 24
+    ) {
+      alert("Wrong");
+    }
     console.log(values);
     alert("Submit");
     axios
@@ -61,6 +64,26 @@ const Index = () => {
       setCar(res.data.car);
       setListLoading(false);
     });
+  };
+  const disabledHours = () => {
+    const hours = [];
+    const currentHour = startTime.split(":")[0];
+
+    for (let i = currentHour; i >= 0; i--) {
+      hours.push(i);
+    }
+
+    return hours;
+  };
+  const disabledMinutes = (selectedHour) => {
+    const minutes = [];
+    const currentMinute = startTime.split(":")[1];
+    if (selectedHour === moment().hour()) {
+      for (let i = currentMinute; i >= 0; i--) {
+        minutes.push(i);
+      }
+    }
+    return minutes;
   };
   useEffect(() => {
     // getData();
@@ -82,7 +105,8 @@ const Index = () => {
     }
   };
   const onChangeStartTime = (e) => {
-    console.log(e);
+    console.log("e", e);
+
     console.log(moment(e).format("HH:mm:ss"));
 
     setStartTime(moment(e).format("HH:mm:ss"));
@@ -90,6 +114,7 @@ const Index = () => {
       setThisStart(startDate + " " + moment(e).format("HH:mm:ss"));
       console.log("start : " + startDate + " " + moment(e).format("HH:mm:ss"));
     }
+    form.setFieldsValue({ endtime: e });
   };
   const onChangeEndDate = (e) => {
     console.log(e);
@@ -115,12 +140,12 @@ const Index = () => {
     <>
       <Basic slug={`ค้นหารถ`} />
 
-      {/* {JSON.stringify(thisStart)}
-      {JSON.stringify(thisEnd)} */}
+      {/* {/* {JSON.stringify(thisStart)} */}
+
       <Row justify={"center"}>
         <Col span={24}>
           <Widget className="mt-5" title={<h3>ตัวเลือกการจองรถ</h3>}>
-            <Form onFinish={onAdd} layout="vertical">
+            <Form form={form} onFinish={onAdd} layout="vertical">
               <div className="row">
                 <div className="col-md-3">
                   <Form.Item name={`startdate`} label={`วันที่จอง`}>
@@ -135,7 +160,7 @@ const Index = () => {
                   <Form.Item name={`starttime`} label={`เวลาที่จอง`}>
                     <TimePicker
                       format={"HH:mm"}
-                      onChange={onChangeStartTime}
+                      onSelect={onChangeStartTime}
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -153,6 +178,12 @@ const Index = () => {
                 <div className="col-md-3">
                   <Form.Item name={`endtime`} label={`เวลาที่คืน`}>
                     <TimePicker
+                      disabledHours={
+                        startDate === endDate ? disabledHours : null
+                      }
+                      disabledMinutes={
+                        startDate === endDate ? disabledMinutes : null
+                      }
                       format={"HH:mm"}
                       onChange={onChangeEndTime}
                       style={{ width: "100%" }}
@@ -175,7 +206,7 @@ const Index = () => {
       </Row>
 
       <div className="row">
-        {car ? (
+        {car[0] ? (
           car.map((item) => (
             <div className="col-md-4 p-3">
               <div className="card p-3" style={{ borderRadius: "22px" }}>
@@ -218,7 +249,7 @@ const Index = () => {
           ))
         ) : (
           <div>
-            <Skeleton />
+            <Skeleton active />
           </div>
         )}
       </div>
