@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { takeEvery } from "redux-saga/effects";
 import moment from "moment";
 import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import Link from "antd/lib/typography/Link";
 const Cancelled = () => {
   const [tableLoading, setTableLoading] = useState();
   const [tableData, setTableData] = useState([]);
@@ -56,6 +57,27 @@ const Cancelled = () => {
               รออนุมัติ
             </span>
           ) : null}
+          {record && record.status == "C" ? (
+            <span className="btn btn-outline-danger" style={{ color: "red" }}>
+              ยกเลิก
+            </span>
+          ) : null}
+          {record && record.status == "S" ? (
+            <span
+              className="btn btn-outline-success"
+              style={{ color: "green" }}
+            >
+              เสร็จสิ้น
+            </span>
+          ) : null}
+          {record && record.status == "A" ? (
+            <span
+              className="btn btn-outline-warning"
+              style={{ color: "orange" }}
+            >
+              อนุมัติแล้ว
+            </span>
+          ) : null}
         </div>
       ),
     },
@@ -65,12 +87,7 @@ const Cancelled = () => {
       width: 150,
       render: (text, record) => (
         <div>
-          <Popconfirm
-            title={`คุณต้องการลบ "${record.refCode}" ใช่หรือไม่?`}
-            okText="Yes"
-            cancelText="No"
-            onConfirm={() => {}}
-          >
+          <Link href={`/booking/${record.id}`} as={`/booking/[id]`}>
             <Button
               className="btn btn-primary"
               icon={<EyeOutlined />}
@@ -78,7 +95,7 @@ const Cancelled = () => {
             >
               ดูรายละเอียด
             </Button>
-          </Popconfirm>
+          </Link>
         </div>
       ),
     },

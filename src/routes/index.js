@@ -33,6 +33,11 @@ const App = ({ match }) => {
           component={asyncComponent(() => import("./Booking/index"))}
         />
         <Route
+          path={`${match.url}Car/:id`}
+          exact
+          component={asyncComponent(() => import("./Car/Detail/[id]"))}
+        />
+        <Route
           path={`${match.url}Car`}
           exact
           component={asyncComponent(() => import("./Car/index"))}

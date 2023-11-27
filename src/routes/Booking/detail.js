@@ -6,6 +6,7 @@ import Basic from "../../components/navigation/Breadcrumb/Basic";
 import Widget from "../../components/Widget";
 import moment from "moment";
 import Start from "./start";
+import End from "./end";
 
 const BookingDetail = (props) => {
   const [booking, setBooking] = useState();
@@ -13,14 +14,20 @@ const BookingDetail = (props) => {
   const [user, setUser] = useState();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEndlOpen, setIsEndOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const endModal = () => {
+    setIsEndOpen(true);
+  };
   const handleOk = () => {
     setIsModalOpen(false);
+    setIsEndOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    setIsEndOpen(false);
   };
 
   useEffect(() => {
@@ -56,7 +63,7 @@ const BookingDetail = (props) => {
   return (
     <>
       {/* {JSON.stringify(props.match.params.id)} */}
-      {JSON.stringify(booking)}
+      {/* {JSON.stringify(booking)} */}
       {/* {JSON.stringify(car)} */}
       {/* {JSON.stringify(user)} */}
       <Basic slug={`รายละเอียดการจองรถ`} />
@@ -78,10 +85,13 @@ const BookingDetail = (props) => {
                 <u style={{ color: "red" }}>ยกเลิก</u>
               ) : null}
               {booking && booking.status === "WA" ? (
-                <u style={{ color: "yellow" }}>รออนุมัติ</u>
+                <u style={{ color: "grey" }}>รออนุมัติ</u>
               ) : null}
               {booking && booking.status === "A" ? (
                 <u style={{ color: "green" }}>อนุมัติ</u>
+              ) : null}
+              {booking && booking.status === "S" ? (
+                <u style={{ color: "blue" }}>เสร็จสิ้น</u>
               ) : null}
             </h1>
             <Row>
@@ -120,6 +130,36 @@ const BookingDetail = (props) => {
               </Col>
             </Row>
           </Widget>
+          <Widget>
+            <h1>เลขไมล์ตอนรับรถ {booking ? booking.startMile : 0} KM</h1>
+            <br />
+            <Row>
+              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                <img src={BASE_URL + (booking ? booking.image1 : 0)} />
+              </Col>
+              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                <img src={BASE_URL + (booking ? booking.image2 : 0)} />
+              </Col>
+              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                <img src={BASE_URL + (booking ? booking.image3 : 0)} />
+              </Col>
+              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                <img src={BASE_URL + (booking ? booking.image4 : 0)} />
+              </Col>
+            </Row>
+          </Widget>
+          <Widget>
+            <h1>
+              เลขไมล์ตอนรับรถ {booking ? booking.endMile : 0} KM, ระยะทางรวม{" "}
+              {booking ? booking.endMile - booking.startMile : 0} KM
+            </h1>
+            <br />
+            <Row>
+              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                <img src={BASE_URL + (booking ? booking.image : 0)} />
+              </Col>
+            </Row>
+          </Widget>
           <Row justify={"center"}>
             {booking && booking.status === "WA" ? (
               <>
@@ -136,7 +176,9 @@ const BookingDetail = (props) => {
                     รับรถ
                   </Button>
                 ) : (
-                  <Button type="primary">คืนรถ</Button>
+                  <Button type="primary" onClick={endModal}>
+                    คืนรถ
+                  </Button>
                 )}
               </>
             ) : null}
@@ -153,6 +195,16 @@ const BookingDetail = (props) => {
         footer={false}
       >
         <Start booking={booking} />
+      </Modal>
+      <Modal
+        title="แบบฟอร์มการรับรถ"
+        open={isEndlOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        // width={1000}
+        footer={false}
+      >
+        <End booking={booking} />
       </Modal>
     </>
   );

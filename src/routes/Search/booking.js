@@ -2,6 +2,7 @@ import { Button, Form, Input, Row, Select, message } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL, authUser } from "../../repositories/repository";
+import moment from "moment";
 
 const Booking = ({ data, start, end }) => {
   const [form] = Form.useForm();
@@ -42,7 +43,7 @@ const Booking = ({ data, start, end }) => {
     var context = {
       id: 0,
       startDate: new Date(start),
-      endDate: new Date(end),
+      endDate: new Date(moment(end).add(30, "m")),
       target: values.target,
       costCenter: values.costCenter,
       note: values.note,

@@ -23,6 +23,7 @@ import {
   FormOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
+import Link from "antd/lib/typography/Link";
 const Index = () => {
   const [car, setCar] = useState([]);
   const [dataModal, setDataModal] = useState();
@@ -104,7 +105,9 @@ const Index = () => {
                       >
                         {item.licensePlate}
                       </Tag>
-                      <p className="gx-mb-2">{item.name}</p>
+                      <Link href={`/car/${item.id}`} as={`/car/[id]`}>
+                        <p className="gx-mb-2">{item.name}</p>
+                      </Link>
                       <FormOutlined
                         onClick={() => editModal(item)}
                         style={{ color: "blue" }}

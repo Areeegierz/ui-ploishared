@@ -46,9 +46,13 @@ const Index = () => {
   };
   const onAdd = (values) => {
     console.log(values);
-    axios.get(API_URL + "Car/Get").then((res) => {
-      console.log("getcar", res);
-    });
+    alert("Submit");
+    axios
+      .get(API_URL + `Car/Search?start=${thisStart}&end=${thisEnd}`)
+      .then((res) => {
+        console.log("getcar", res);
+        setCar(res.data.car);
+      });
   };
   const [car, setCar] = useState([]);
   const getData = () => {
@@ -59,7 +63,7 @@ const Index = () => {
     });
   };
   useEffect(() => {
-    getData();
+    // getData();
   }, []);
 
   function bookingModal(item) {

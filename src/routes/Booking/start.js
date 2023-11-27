@@ -90,7 +90,6 @@ const Start = ({ booking }) => {
   };
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
-      {JSON.stringify(booking)}
       <Form.Item label={`รูปรถ (หน้า,ซ้าย,ขวา,หลัง)`}>
         <Space
           justify={"center"}
