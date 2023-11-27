@@ -73,7 +73,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   style={{ color: "#E5E4E2" }}
                   activeStyle={{ color: "orange" }}
                 >
-                  <i className={"icon icon-chart-pie"} />
+                  <i className={"icon icon-search"} />
                   <span>
                     <IntlMessages id="ค้นหารถ" />
                   </span>

@@ -32,7 +32,7 @@ const SidebarLogo = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         </div>
       ) : null}
 
-      <Link to="/" className="gx-site-logo">
+      <Link to="/search" className="gx-site-logo">
         {navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && width >= TAB_SIZE ? (
           <img
             alt="lo"
