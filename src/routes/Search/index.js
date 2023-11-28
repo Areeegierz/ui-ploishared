@@ -114,6 +114,7 @@ const Index = () => {
       setThisStart(startDate + " " + moment(e).format("HH:mm:ss"));
       console.log("start : " + startDate + " " + moment(e).format("HH:mm:ss"));
     }
+    setEndTime(moment(e).format("HH:mm:ss"));
     form.setFieldsValue({ endtime: e });
   };
   const onChangeEndDate = (e) => {
@@ -139,8 +140,6 @@ const Index = () => {
   return (
     <>
       <Basic slug={`ค้นหารถ`} />
-
-      {/* {/* {JSON.stringify(thisStart)} */}
 
       <Row justify={"center"}>
         <Col span={24}>
@@ -206,52 +205,48 @@ const Index = () => {
       </Row>
 
       <div className="row">
-        {car[0] ? (
-          car.map((item) => (
-            <div className="col-md-4 p-3">
-              <div className="card p-3" style={{ borderRadius: "22px" }}>
-                <div className="row">
-                  <div className="col-md-4 text-center">
-                    <img
-                      className="gx-rounded-lg"
-                      src={BASE_URL + item.image}
-                      width={100}
-                      height={100}
-                      alt="..."
-                    />
-                  </div>
-                  <div className="col-md-8">
-                    <Tag
-                      className="gx-rounded-xs gx-text-uppercase"
-                      color="#06BB8A"
-                    >
-                      {item.licensePlate}
-                    </Tag>
-                    <p className="gx-mb-2">{item.name}</p>
+        {car[0]
+          ? car.map((item) => (
+              <div className="col-md-4 p-3">
+                <div className="card p-3" style={{ borderRadius: "22px" }}>
+                  <div className="row">
+                    <div className="col-md-4 text-center">
+                      <img
+                        className="gx-rounded-lg"
+                        src={BASE_URL + item.image}
+                        width={100}
+                        height={100}
+                        alt="..."
+                      />
+                    </div>
+                    <div className="col-md-8">
+                      <Tag
+                        className="gx-rounded-xs gx-text-uppercase"
+                        color="#06BB8A"
+                      >
+                        {item.licensePlate}
+                      </Tag>
+                      <p className="gx-mb-2">{item.name}</p>
 
-                    <u className="gx-text-primary gx-text-truncate gx-mt-sm-auto gx-mb-0 gx-pointer">
-                      {/* <i
+                      <u className="gx-text-primary gx-text-truncate gx-mt-sm-auto gx-mb-0 gx-pointer">
+                        {/* <i
                           className={`icon icon-calenda gx-fs-xxl gx-ml-1 gx-ml-sm-2 gx-d-inline-flex gx-vertical-align-middle`}
                         /> */}
-                      <i class="icon icon-calendar"></i>
-                      <span
-                        className="ml-3"
-                        style={{ marginLeft: "10px" }}
-                        onClick={() => bookingModal(item)}
-                      >
-                        จอง
-                      </span>
-                    </u>
+                        <i class="icon icon-calendar"></i>
+                        <span
+                          className="ml-3"
+                          style={{ marginLeft: "10px" }}
+                          onClick={() => bookingModal(item)}
+                        >
+                          จอง
+                        </span>
+                      </u>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <div>
-            <Skeleton active />
-          </div>
-        )}
+            ))
+          : null}
       </div>
       <Modal
         title="แบบฟอร์มการจองรถ"

@@ -23,6 +23,16 @@ const App = ({ match }) => {
         />
 
         <Route
+          path={`${match.url}Booking/approve/:code`}
+          exact
+          component={asyncComponent(() => import("./Booking/Approve/[code]"))}
+        />
+        <Route
+          path={`${match.url}Booking/reject/:code`}
+          exact
+          component={asyncComponent(() => import("./Booking/Reject/[code]"))}
+        />
+        <Route
           path={`${match.url}Booking/:id`}
           exact
           component={asyncComponent(() => import("./Booking/detail"))}

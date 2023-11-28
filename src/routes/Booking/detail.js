@@ -60,10 +60,16 @@ const BookingDetail = (props) => {
       getBoooking(props.match.params.id);
     });
   }
+  function reSend() {
+    axios.post(API_URL + `Booking/SendMail?id=${booking.id}`).then((res) => {
+      message.success(`ส่งอีเมลขออนุมัติอีกครั้งสำเร็จ`);
+      getBoooking(props.match.params.id);
+    });
+  }
   return (
     <>
       {/* {JSON.stringify(props.match.params.id)} */}
-      {/* {JSON.stringify(booking)} */}
+      {JSON.stringify(booking)}
       {/* {JSON.stringify(car)} */}
       {/* {JSON.stringify(user)} */}
       <Basic slug={`รายละเอียดการจองรถ`} />
@@ -130,40 +136,46 @@ const BookingDetail = (props) => {
               </Col>
             </Row>
           </Widget>
-          <Widget>
-            <h1>เลขไมล์ตอนรับรถ {booking ? booking.startMile : 0} KM</h1>
-            <br />
-            <Row>
-              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                <img src={BASE_URL + (booking ? booking.image1 : 0)} />
-              </Col>
-              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                <img src={BASE_URL + (booking ? booking.image2 : 0)} />
-              </Col>
-              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                <img src={BASE_URL + (booking ? booking.image3 : 0)} />
-              </Col>
-              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                <img src={BASE_URL + (booking ? booking.image4 : 0)} />
-              </Col>
-            </Row>
-          </Widget>
-          <Widget>
-            <h1>
-              เลขไมล์ตอนรับรถ {booking ? booking.endMile : 0} KM, ระยะทางรวม{" "}
-              {booking ? booking.endMile - booking.startMile : 0} KM
-            </h1>
-            <br />
-            <Row>
-              <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                <img src={BASE_URL + (booking ? booking.image : 0)} />
-              </Col>
-            </Row>
-          </Widget>
+          {booking && booking.startId != 0 ? (
+            <Widget>
+              <h1>เลขไมล์ตอนรับรถ {booking ? booking.startMile : 0} KM</h1>
+              <br />
+              <Row>
+                <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                  <img src={BASE_URL + (booking ? booking.image1 : 0)} />
+                </Col>
+                <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                  <img src={BASE_URL + (booking ? booking.image2 : 0)} />
+                </Col>
+                <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                  <img src={BASE_URL + (booking ? booking.image3 : 0)} />
+                </Col>
+                <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                  <img src={BASE_URL + (booking ? booking.image4 : 0)} />
+                </Col>
+              </Row>
+            </Widget>
+          ) : null}
+          {booking && booking.endId != 0 ? (
+            <Widget>
+              <h1>
+                เลขไมล์ตอนคืนรถ {booking ? booking.endMile : 0} KM, ระยะทางรวม{" "}
+                {booking ? booking.endMile - booking.startMile : 0} KM
+              </h1>
+              <br />
+              <Row>
+                <Col xl={6} lg={6} md={24} sm={24} xs={24}>
+                  <img src={BASE_URL + (booking ? booking.image : 0)} />
+                </Col>
+              </Row>
+            </Widget>
+          ) : null}
           <Row justify={"center"}>
             {booking && booking.status === "WA" ? (
               <>
-                <Button type="primary">ส่งอีเมลขออนุมัติ</Button>
+                <Button type="primary" onClick={() => reSend()}>
+                  ส่งอีเมลขออนุมัติ
+                </Button>
                 <Button type="danger" onClick={() => Cancel()}>
                   ยกเลิก
                 </Button>
