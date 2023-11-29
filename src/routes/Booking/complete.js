@@ -58,23 +58,17 @@ const Complete = () => {
             </span>
           ) : null}
           {record && record.status == "C" ? (
-            <span className="btn btn-outline-danger" style={{ color: "red" }}>
+            <span className="btn" style={{ color: "red" }}>
               ยกเลิก
             </span>
           ) : null}
           {record && record.status == "S" ? (
-            <span
-              className="btn btn-outline-success"
-              style={{ color: "green" }}
-            >
+            <span className="btn" style={{ color: "blue" }}>
               เสร็จสิ้น
             </span>
           ) : null}
           {record && record.status == "A" ? (
-            <span
-              className="btn btn-outline-warning"
-              style={{ color: "orange" }}
-            >
+            <span className="btn" style={{ color: "green" }}>
               อนุมัติแล้ว
             </span>
           ) : null}

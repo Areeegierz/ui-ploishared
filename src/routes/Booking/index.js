@@ -34,6 +34,7 @@ const Index = () => {
 
   function getNotice(uid) {
     axios.get(API_URL + `Booking/Notice?uid=${uid}`).then((res) => {
+      console.log("fffffff", res);
       setAcc(res.data.acc);
       setWAcc(res.data.wacc);
       setCanceled(res.data.cancel);
@@ -95,7 +96,7 @@ const Index = () => {
     <>
       <Basic slug={`จองรถ`} />
 
-      <Tabs defaultActiveKey="4" items={items} onChange={onChange} />
+      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </>
   );
 };

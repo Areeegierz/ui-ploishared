@@ -45,10 +45,15 @@ const End = ({ booking }) => {
       createAt: null,
       createBy: authUser.id,
     };
-    axios.post(API_URL + `End/Create?id=${booking.id}`, context).then((res) => {
-      message.success(`รับรถสำเร็จ`);
-      setTimeout(window.location.reload(), 1000);
-    });
+    axios
+      .post(API_URL + `End/Create?id=${booking.id}`, context)
+      .then((res) => {
+        message.success(`คืนรถสำเร็จ`);
+        setTimeout(() => window.location.reload(), 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
@@ -70,7 +75,15 @@ const End = ({ booking }) => {
         </Space>
       </Form.Item>
 
-      <Form.Item label={`เลขไมล์`} name={`mile`}>
+      <Form.Item
+        label={`เลขไมล์`}
+        name={`mile`}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
         <Input />
       </Form.Item>
       <Row justify={"center"}>

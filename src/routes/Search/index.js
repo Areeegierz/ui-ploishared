@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import dayjs from "dayjs";
+import React, { useState } from "react";
+
 import {
   Col,
   DatePicker,
+  Empty,
   Form,
   Modal,
   Row,
@@ -23,7 +24,7 @@ import { useForm } from "antd/lib/form/Form";
 
 const Index = () => {
   const [form] = useForm();
-  const [listLoading, setListLoading] = useState();
+
   const [dataModal, setDataModal] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startDate, setStartDate] = useState();
@@ -32,6 +33,8 @@ const Index = () => {
   const [endTime, setEndTime] = useState();
   const [thisStart, setThisStart] = useState();
   const [thisEnd, setThisEnd] = useState();
+  const [car, setCar] = useState([]);
+  const [carList, setCarList] = useState(false);
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -42,29 +45,14 @@ const Index = () => {
     console.log(date, dateString);
   };
   const onAdd = (values) => {
-    if (
-      values.enddate - values.startdate > 1 &&
-      values.endtime - values.starttime === 24
-    ) {
-      alert("Wrong");
-    }
-    console.log(values);
-    alert("Submit");
     axios
       .get(API_URL + `Car/Search?start=${thisStart}&end=${thisEnd}`)
       .then((res) => {
-        console.log("getcar", res);
         setCar(res.data.car);
+        setCarList(true);
       });
   };
-  const [car, setCar] = useState([]);
-  const getData = () => {
-    setListLoading(true);
-    axios.get(API_URL + `Car/Get`).then((res) => {
-      setCar(res.data.car);
-      setListLoading(false);
-    });
-  };
+
   const disabledHours = () => {
     const hours = [];
     const currentHour = startTime.split(":")[0];
@@ -85,9 +73,6 @@ const Index = () => {
     }
     return minutes;
   };
-  useEffect(() => {
-    // getData();
-  }, []);
 
   function bookingModal(item) {
     setDataModal(item);
@@ -205,48 +190,50 @@ const Index = () => {
       </Row>
 
       <div className="row">
-        {car[0]
-          ? car.map((item) => (
-              <div className="col-md-4 p-3">
-                <div className="card p-3" style={{ borderRadius: "22px" }}>
-                  <div className="row">
-                    <div className="col-md-4 text-center">
-                      <img
-                        className="gx-rounded-lg"
-                        src={BASE_URL + item.image}
-                        width={100}
-                        height={100}
-                        alt="..."
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <Tag
-                        className="gx-rounded-xs gx-text-uppercase"
-                        color="#06BB8A"
-                      >
-                        {item.licensePlate}
-                      </Tag>
-                      <p className="gx-mb-2">{item.name}</p>
+        {car.length > 0 ? (
+          car.map((item) => (
+            <div className="col-md-4 p-3">
+              <div className="card p-3" style={{ borderRadius: "22px" }}>
+                <div className="row">
+                  <div className="col-md-4 text-center">
+                    <img
+                      className="gx-rounded-lg"
+                      src={BASE_URL + item.image}
+                      width={100}
+                      height={100}
+                      alt="..."
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <Tag
+                      className="gx-rounded-xs gx-text-uppercase"
+                      color="#06BB8A"
+                    >
+                      {item.licensePlate}
+                    </Tag>
+                    <p className="gx-mb-2">{item.name}</p>
 
-                      <u className="gx-text-primary gx-text-truncate gx-mt-sm-auto gx-mb-0 gx-pointer">
-                        {/* <i
+                    <u className="gx-text-primary gx-text-truncate gx-mt-sm-auto gx-mb-0 gx-pointer">
+                      {/* <i
                           className={`icon icon-calenda gx-fs-xxl gx-ml-1 gx-ml-sm-2 gx-d-inline-flex gx-vertical-align-middle`}
                         /> */}
-                        <i class="icon icon-calendar"></i>
-                        <span
-                          className="ml-3"
-                          style={{ marginLeft: "10px" }}
-                          onClick={() => bookingModal(item)}
-                        >
-                          จอง
-                        </span>
-                      </u>
-                    </div>
+                      <i class="icon icon-calendar"></i>
+                      <span
+                        className="ml-3"
+                        style={{ marginLeft: "10px" }}
+                        onClick={() => bookingModal(item)}
+                      >
+                        จอง
+                      </span>
+                    </u>
                   </div>
                 </div>
               </div>
-            ))
-          : null}
+            </div>
+          ))
+        ) : (
+          <Empty />
+        )}
       </div>
       <Modal
         title="แบบฟอร์มการจองรถ"

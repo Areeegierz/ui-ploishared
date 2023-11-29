@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL, BASE_URL } from "../../repositories/repository";
-import { Button, Card, Col, Modal, Row, message } from "antd";
+import { Button, Card, Col, Modal, Popconfirm, Row, message } from "antd";
 import Basic from "../../components/navigation/Breadcrumb/Basic";
 import Widget from "../../components/Widget";
 import moment from "moment";
@@ -68,10 +68,6 @@ const BookingDetail = (props) => {
   }
   return (
     <>
-      {/* {JSON.stringify(props.match.params.id)} */}
-      {JSON.stringify(booking)}
-      {/* {JSON.stringify(car)} */}
-      {/* {JSON.stringify(user)} */}
       <Basic slug={`รายละเอียดการจองรถ`} />
       <Row>
         <Col xl={8} lg={8} md={24} sm={24} xs={24}>
@@ -118,7 +114,7 @@ const BookingDetail = (props) => {
                 </h5>
               </Col>
               <Col xl={8} lg={8} md={24} sm={24} xs={24}>
-                <h5>จุดหมาย : {booking ? booking.provinceName : "ผิดผลาด"}</h5>
+                <h5>จุดหมาย : {booking ? booking.nameInThai : "ผิดผลาด"}</h5>
               </Col>
             </Row>
             <hr />
@@ -174,11 +170,20 @@ const BookingDetail = (props) => {
             {booking && booking.status === "WA" ? (
               <>
                 <Button type="primary" onClick={() => reSend()}>
-                  ส่งอีเมลขออนุมัติ
+                  ส่งอีเมลขออนุมัติอีกครั้ง
                 </Button>
-                <Button type="danger" onClick={() => Cancel()}>
-                  ยกเลิก
-                </Button>
+                <Popconfirm
+                  title={`คุณต้องการยกเลิกการจองครั้งนี้หรือไม่?`}
+                  okText="Yes"
+                  cancelText="No"
+                  onConfirm={() => {
+                    Cancel();
+                  }}
+                >
+                  <Button type="danger" onClick={() => {}}>
+                    ยกเลิกการจอง
+                  </Button>
+                </Popconfirm>
               </>
             ) : null}
             {booking && booking.status === "A" ? (

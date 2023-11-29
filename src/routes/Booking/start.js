@@ -85,7 +85,10 @@ const Start = ({ booking }) => {
       .post(API_URL + `Start/Create?id=${booking.id}`, context)
       .then((res) => {
         message.success(`รับรถสำเร็จ`);
-        setTimeout(window.location.reload(), 1000);
+        setTimeout(() => window.location.reload(), 1000);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   return (
@@ -125,7 +128,15 @@ const Start = ({ booking }) => {
         </Space>
       </Form.Item>
 
-      <Form.Item label={`เลขไมล์`} name={`mile`}>
+      <Form.Item
+        label={`เลขไมล์`}
+        name={`mile`}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
         <Input />
       </Form.Item>
       <Row justify={"center"}>
