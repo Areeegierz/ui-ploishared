@@ -98,6 +98,7 @@ const Cancelled = () => {
     <>
       <Widget>
         <Table
+          scroll={{ x: 1300, y: "100%" }}
           loading={tableLoading}
           columns={columns}
           dataSource={tableData}
