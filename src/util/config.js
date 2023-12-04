@@ -1,3 +1,3 @@
 module.exports = {
-  footerText: "Copyright Digital Platform Development © 2023 - PloiShared",
+  footerText: " © 2023 PloiShared - Digital Platform Development ",
 };

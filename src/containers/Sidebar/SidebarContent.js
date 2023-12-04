@@ -12,6 +12,7 @@ import {
 import IntlMessages from "../../util/IntlMessages";
 import { useSelector } from "react-redux";
 import SubMenu from "antd/lib/menu/SubMenu";
+import { authUser } from "../../repositories/repository";
 
 const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const { navStyle, themeType } = useSelector(({ settings }) => settings);
@@ -67,54 +68,97 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               mode="inline"
               itemColor={"#ffffff"}
             >
-              <Menu.Item key="search">
-                <NavLink
-                  to="/search"
-                  style={{ color: "#E5E4E2" }}
-                  activeStyle={{ color: "orange" }}
-                >
-                  <i className={"icon icon-search"} />
-                  <span>
-                    <IntlMessages id="ค้นหารถ" />
-                  </span>
-                </NavLink>
-              </Menu.Item>
-              <Menu.Item key="booking">
-                <NavLink
-                  to="/booking"
-                  style={{ color: "#E5E4E2" }}
-                  activeStyle={{ color: "orange" }}
-                >
-                  <i className="icon icon-widgets" />
-                  <span>
-                    <IntlMessages id="รายการจองรถ" />
-                  </span>
-                </NavLink>
-              </Menu.Item>
-              <Menu.Item key="User">
-                <NavLink
-                  style={{ color: "#E5E4E2" }}
-                  activeStyle={{ color: "orange" }}
-                  to="/User"
-                >
-                  <i className="icon icon-widgets" />
-                  <span>
-                    <IntlMessages id="บัญชีผู้ใช้งาน" />
-                  </span>
-                </NavLink>
-              </Menu.Item>{" "}
-              <Menu.Item key="Car">
-                <NavLink
-                  style={{ color: "#E5E4E2" }}
-                  activeStyle={{ color: "orange" }}
-                  to="/Car"
-                >
-                  <i className="icon icon-widgets" />
-                  <span>
-                    <IntlMessages id="จัดการรถ" />
-                  </span>
-                </NavLink>
-              </Menu.Item>{" "}
+              {authUser.status === "Member" ? (
+                <>
+                  <Menu.Item key="search">
+                    <NavLink
+                      to="/search"
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                    >
+                      <i className={"icon icon-search"} />
+                      <span>
+                        <IntlMessages id="ค้นหารถ" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="booking">
+                    <NavLink
+                      to="/booking"
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                    >
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="รายการจองรถ" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>
+                </>
+              ) : authUser.status === "Admin" ? (
+                <>
+                  <Menu.Item key="search">
+                    <NavLink
+                      to="/search"
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                    >
+                      <i className={"icon icon-search"} />
+                      <span>
+                        <IntlMessages id="ค้นหารถ" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>
+                  {/* <Menu.Item key="booking">
+                    <NavLink
+                      to="/booking"
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                    >
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="รายการจองรถ" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>{" "} */}
+                  <Menu.Item key="User">
+                    <NavLink
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                      to="/User"
+                    >
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="บัญชีผู้ใช้งาน" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="AdminBooking">
+                    <NavLink
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                      to="/AdminBooking"
+                    >
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="จัดการการจอง" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="Car">
+                    <NavLink
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                      to="/Car"
+                    >
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="จัดการรถ" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>
+                </>
+              ) : null}
             </Menu>
           </ConfigProvider>
         </CustomScrollbars>

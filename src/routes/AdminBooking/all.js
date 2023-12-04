@@ -6,20 +6,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import moment from "moment";
-import { EyeOutlined } from "@ant-design/icons";
+import { CloudDownloadOutlined, EyeOutlined } from "@ant-design/icons";
 import Link from "antd/lib/typography/Link";
-
-const Complete = () => {
+import { Excel } from "antd-table-saveas-excel";
+const All = () => {
   const [tableLoading, setTableLoading] = useState();
   const [tableData, setTableData] = useState([]);
   const getTableData = () => {
     setTableLoading(true);
-    axios
-      .get(API_URL + `Booking/Get?uid=${authUser.id}&status=A`)
-      .then((res) => {
-        setTableData(res.data.booking);
-        setTableLoading(false);
-      });
+    axios.get(API_URL + `Booking/GetAll`).then((res) => {
+      setTableData(res.data.booking);
+      setTableLoading(false);
+    });
   };
   useEffect(() => {
     getTableData();
@@ -27,7 +25,6 @@ const Complete = () => {
   const onChange = (date, dateString) => {
     console.log(date, dateString);
   };
-
   const columns = [
     {
       title: "ระยะเวลาที่จองรถ",
@@ -96,10 +93,89 @@ const Complete = () => {
       ),
     },
   ];
-
+  const columnsExport = [
+    {
+      title: "เลขที่ใบจอง",
+      dataIndex: "code",
+    },
+    {
+      title: "วันเวลาที่จองรถ",
+      key: "startDate",
+      render: (text, record) =>
+        moment(record.startDate).format("DD/MM/YYYY HH:mm"),
+    },
+    {
+      title: "วันเวลาที่คืนรถ",
+      key: "endDate",
+      render: (text, record) =>
+        moment(record.endDate).format("DD/MM/YYYY HH:mm"),
+    },
+    {
+      title: "ทะเบียนรถ",
+      dataIndex: "licensePlate",
+    },
+    {
+      title: "จังหวัดปลายทาง",
+      dataIndex: "provinceName",
+    },
+    {
+      title: "ไมล์เริ่มต้น",
+      dataIndex: "startId",
+    },
+    {
+      title: "ไมล์ตอนคืนรถ",
+      dataIndex: "endId",
+    },
+    {
+      title: "ระยะที่ใช้รถ (กม.)",
+      dataIndex: "summaryMile",
+      render: (text, record) => record.endId - record.startId,
+    },
+    {
+      title: "CostCenter",
+      dataIndex: "costCenter",
+    },
+    {
+      title: "ผู้จอง",
+      dataIndex: "fullName",
+    },
+    {
+      title: "เบอร์โทรผู้จอง",
+      dataIndex: "phone",
+    },
+    {
+      title: "ผู้อนุมัติ",
+      dataIndex: "approver",
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "statusTh",
+    },
+  ];
+  const exportToExcel = () => {
+    const excel = new Excel();
+    excel
+      .addSheet(`รายการอะไหล่`)
+      .addColumns(columnsExport)
+      .addDataSource(tableData, {
+        str2Percent: true,
+      })
+      .saveAs(`รายการจองรถ ${moment().format("DDMMYYYY")}.xlsx`);
+  };
   return (
     <>
-      <Widget>
+      <Widget
+        extra={
+          <Button
+            type="primary"
+            style={{ marginTop: "10px" }}
+            onClick={exportToExcel}
+            icon={<CloudDownloadOutlined />}
+          >
+            <span>Export</span>
+          </Button>
+        }
+      >
         <Table
           scroll={{ x: 1300, y: "100%" }}
           loading={tableLoading}
@@ -110,4 +186,4 @@ const Complete = () => {
     </>
   );
 };
-export default Complete;
+export default All;

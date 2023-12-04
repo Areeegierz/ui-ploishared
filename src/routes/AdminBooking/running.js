@@ -8,18 +8,15 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
 import Link from "antd/lib/typography/Link";
-
-const Complete = () => {
+const Running = () => {
   const [tableLoading, setTableLoading] = useState();
   const [tableData, setTableData] = useState([]);
   const getTableData = () => {
     setTableLoading(true);
-    axios
-      .get(API_URL + `Booking/Get?uid=${authUser.id}&status=A`)
-      .then((res) => {
-        setTableData(res.data.booking);
-        setTableLoading(false);
-      });
+    axios.get(API_URL + `Booking/GetAll?status=A&type=today`).then((res) => {
+      setTableData(res.data.booking);
+      setTableLoading(false);
+    });
   };
   useEffect(() => {
     getTableData();
@@ -27,7 +24,6 @@ const Complete = () => {
   const onChange = (date, dateString) => {
     console.log(date, dateString);
   };
-
   const columns = [
     {
       title: "ระยะเวลาที่จองรถ",
@@ -96,7 +92,6 @@ const Complete = () => {
       ),
     },
   ];
-
   return (
     <>
       <Widget>
@@ -110,4 +105,4 @@ const Complete = () => {
     </>
   );
 };
-export default Complete;
+export default Running;

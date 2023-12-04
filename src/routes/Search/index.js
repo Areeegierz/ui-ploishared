@@ -232,7 +232,7 @@ const Index = () => {
             </div>
           ))
         ) : (
-          <Empty />
+          <Empty description={"ยังไม่ได้เลือกวันและเวลาที่จอง"} />
         )}
       </div>
       <Modal

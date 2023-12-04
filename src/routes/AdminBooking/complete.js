@@ -14,12 +14,10 @@ const Complete = () => {
   const [tableData, setTableData] = useState([]);
   const getTableData = () => {
     setTableLoading(true);
-    axios
-      .get(API_URL + `Booking/Get?uid=${authUser.id}&status=A`)
-      .then((res) => {
-        setTableData(res.data.booking);
-        setTableLoading(false);
-      });
+    axios.get(API_URL + `Booking/GetAll?status=A`).then((res) => {
+      setTableData(res.data.booking);
+      setTableLoading(false);
+    });
   };
   useEffect(() => {
     getTableData();

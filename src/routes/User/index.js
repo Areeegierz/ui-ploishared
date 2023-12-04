@@ -108,7 +108,12 @@ const Index = () => {
           </a>
         }
       >
-        <Table loading={tableLoading} dataSource={user} columns={columns} />
+        <Table
+          scroll={{ x: 1300, y: "100%" }}
+          loading={tableLoading}
+          dataSource={user}
+          columns={columns}
+        />
       </Widget>
 
       <Modal

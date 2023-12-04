@@ -15,13 +15,11 @@ const App = ({ match }) => {
           exact
           component={asyncComponent(() => import("./Search/index"))}
         />
-
         <Route
           path={`${match.url}User`}
           exact
           component={asyncComponent(() => import("./User/index"))}
         />
-
         <Route
           path={`${match.url}Booking/approve/:code`}
           exact
@@ -56,6 +54,12 @@ const App = ({ match }) => {
           path={`${match.url}SearchDetail/:id`}
           exact
           component={asyncComponent(() => import("./Search/detail"))}
+        />
+
+        <Route
+          path={`${match.url}AdminBooking`}
+          exact
+          component={asyncComponent(() => import("./AdminBooking/index"))}
         />
       </Switch>
     </div>
