@@ -15,7 +15,7 @@ const Add = () => {
       email: values.username + "@scg.com",
       phone: values.phone,
       status: "A",
-      approvver: values.approvver + "@scg.com",
+      approver: values.approver + "@scg.com",
       role: "member",
       createAt: null,
     };
@@ -89,12 +89,12 @@ const Add = () => {
         <Input placeholder="เบอร์โทรศัพท์" />
       </Form.Item>
       <Form.Item
-        name={`approvver`}
+        name={`approver`}
         label={`ผู้อนุมัติ`}
         rules={[
           {
             required: true,
-            message: "The input your approvver!",
+            message: "The input your approver!",
           },
         ]}
       >

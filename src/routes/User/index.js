@@ -73,7 +73,7 @@ const Index = () => {
               axios
                 .delete(API_URL + "user/Remove?id=" + record.id)
                 .then((res) => {
-                  message.success(`Delete ${record.name} Successfully!`);
+                  message.success(`Delete ${record.fullName} Successfully!`);
                   getData();
                 });
             }}
