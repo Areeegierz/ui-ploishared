@@ -14,6 +14,7 @@ const Booking = ({ data, start, end }) => {
   useEffect(() => {
     if (data) {
       form.setFieldsValue({ name: authUser.name, approver: authUser.approver });
+
       getUser();
       getProvince();
     }

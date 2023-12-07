@@ -28,6 +28,7 @@ const SignIn = () => {
           console.log(jwt);
           localStorage.setItem("user", jwt);
           setLoadings(false);
+
           console.log(
             `เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ ${res.data.user.name}`,
             res.status

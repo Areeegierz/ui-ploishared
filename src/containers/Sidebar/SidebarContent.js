@@ -109,18 +109,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </NavLink>
                   </Menu.Item>
-                  {/* <Menu.Item key="booking">
-                    <NavLink
-                      to="/booking"
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                    >
-                      <i className="icon icon-widgets" />
-                      <span>
-                        <IntlMessages id="รายการจองรถ" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>{" "} */}
+
                   <Menu.Item key="User">
                     <NavLink
                       style={{ color: "#E5E4E2" }}
