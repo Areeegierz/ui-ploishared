@@ -11,55 +11,15 @@ const App = ({ match }) => {
     >
       <Switch>
         <Route
-          path={`${match.url}`}
+          path={`${match.url}content`}
           exact
-          component={asyncComponent(() => import("./Search/index"))}
-        />
-        <Route
-          path={`${match.url}User`}
-          exact
-          component={asyncComponent(() => import("./User/index"))}
-        />
-        <Route
-          path={`${match.url}Booking/approve/:code`}
-          exact
-          component={asyncComponent(() => import("./Booking/Approve/[code]"))}
-        />
-        <Route
-          path={`${match.url}Booking/reject/:code`}
-          exact
-          component={asyncComponent(() => import("./Booking/Reject/[code]"))}
-        />
-        <Route
-          path={`${match.url}Booking/:id`}
-          exact
-          component={asyncComponent(() => import("./Booking/detail"))}
-        />
-        <Route
-          path={`${match.url}Booking`}
-          exact
-          component={asyncComponent(() => import("./Booking/index"))}
-        />
-        <Route
-          path={`${match.url}Car/:id`}
-          exact
-          component={asyncComponent(() => import("./Car/Detail/[id]"))}
-        />
-        <Route
-          path={`${match.url}Car`}
-          exact
-          component={asyncComponent(() => import("./Car/index"))}
-        />
-        <Route
-          path={`${match.url}SearchDetail/:id`}
-          exact
-          component={asyncComponent(() => import("./Search/detail"))}
+          component={asyncComponent(() => import("./Content/index"))}
         />
 
         <Route
-          path={`${match.url}AdminBooking`}
+          path={`${match.url}staffcontent`}
           exact
-          component={asyncComponent(() => import("./AdminBooking/index"))}
+          component={asyncComponent(() => import("./StaffContent/index"))}
         />
       </Switch>
     </div>

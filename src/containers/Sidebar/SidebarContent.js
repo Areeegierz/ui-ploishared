@@ -68,86 +68,30 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               mode="inline"
               itemColor={"#ffffff"}
             >
-              {authUser.status === "Member" ? (
-                <>
-                  <Menu.Item key="search">
-                    <NavLink
-                      to="/"
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                    >
-                      <i className={"icon icon-search"} />
-                      <span>
-                        <IntlMessages id="ค้นหารถ" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="booking">
-                    <NavLink
-                      to="/booking"
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                    >
-                      <i className="icon icon-widgets" />
-                      <span>
-                        <IntlMessages id="รายการจองรถ" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
-                </>
-              ) : authUser.status === "Admin" ? (
-                <>
-                  <Menu.Item key="search">
-                    <NavLink
-                      to="/"
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                    >
-                      <i className={"icon icon-search"} />
-                      <span>
-                        <IntlMessages id="ค้นหารถ" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
-
-                  <Menu.Item key="User">
-                    <NavLink
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                      to="/User"
-                    >
-                      <i className="icon icon-widgets" />
-                      <span>
-                        <IntlMessages id="บัญชีผู้ใช้งาน" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="AdminBooking">
-                    <NavLink
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                      to="/AdminBooking"
-                    >
-                      <i className="icon icon-widgets" />
-                      <span>
-                        <IntlMessages id="จัดการการจอง" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="Car">
-                    <NavLink
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                      to="/Car"
-                    >
-                      <i className="icon icon-widgets" />
-                      <span>
-                        <IntlMessages id="จัดการรถ" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
-                </>
-              ) : null}
+              <Menu.Item key="content">
+                <NavLink
+                  to="/content"
+                  style={{ color: "#E5E4E2" }}
+                  activeStyle={{ color: "orange" }}
+                >
+                  <i className={"icon icon-search"} />
+                  <span>
+                    <IntlMessages id="แก้ไขเนื้อหาลูกค้า" />
+                  </span>
+                </NavLink>
+              </Menu.Item>
+              <Menu.Item key="staffcontent">
+                <NavLink
+                  to="/staffcontent"
+                  style={{ color: "#E5E4E2" }}
+                  activeStyle={{ color: "orange" }}
+                >
+                  <i className={"icon icon-search"} />
+                  <span>
+                    <IntlMessages id="แก้ไขเนื้อหาพนักงาน" />
+                  </span>
+                </NavLink>
+              </Menu.Item>
             </Menu>
           </ConfigProvider>
         </CustomScrollbars>
