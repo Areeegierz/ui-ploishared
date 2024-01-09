@@ -37,7 +37,7 @@ const Add = () => {
           },
         ]}
       >
-        <Input addonAfter="@scg.com" placeholder="ชื่อผู้ใช้งาน" />
+        <Input addonAfter="@SCG.com" placeholder="ชื่อผู้ใช้งาน" />
       </Form.Item>
       <Form.Item
         name={`password`}
@@ -98,7 +98,7 @@ const Add = () => {
           },
         ]}
       >
-        <Input addonAfter="@scg.com" placeholder="ผู้อนุมัติ" />
+        <Input addonAfter="@SCG.com" placeholder="ผู้อนุมัติ" />
       </Form.Item>
       <Row justify={"center"}>
         <Button type="primary" htmlType="submit">

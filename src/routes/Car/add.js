@@ -15,9 +15,6 @@ const getBase64 = (file) =>
 const Add = () => {
   const [form] = useForm();
   const [file, setFile] = useState([]);
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
-  const [previewTitle, setPreviewTitle] = useState("");
   const onFinish = async (values) => {
     const imageList = [];
     for (let i = 0; i < fileList.length; i++) {
@@ -49,26 +46,18 @@ const Add = () => {
     console.log(context);
     axios.post(API_URL + `Car/Create`, context).then((res) => {
       console.log(res);
+      if (res.data === "dupdata") {
+        message.error(`มีข้อมูลรถคันนี้อยู่แล้ว`);
+        return false;
+      }
       message.success(`บันทึกข้อมูลสำเร็จ`);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
       form.resetFields();
     });
   };
-  const handleCancel = () => setPreviewOpen(false);
 
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-    setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
-    );
-  };
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
   const [fileList, setFileList] = useState([]);
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -115,9 +104,9 @@ const Add = () => {
       >
         <Input placeholder="ยี่ห้อ" />
       </Form.Item>
-
       <Upload
         listType="picture-card"
+        action={API_URL + "Car/Upload"}
         fileList={fileList}
         onChange={onChange}
         onPreview={onPreview}

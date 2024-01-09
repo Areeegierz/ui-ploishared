@@ -21,8 +21,8 @@ const Index = () => {
     getNotice(authUser.id);
   }, []);
 
-  function getNotice(uid) {
-    axios.get(API_URL + `Booking/Notice?uid=${uid}`).then((res) => {
+  function getNotice() {
+    axios.get(API_URL + `Booking/NoticeAll`).then((res) => {
       console.log("fffffff", res);
       setAcc(res.data.acc);
       setWAcc(res.data.wacc);

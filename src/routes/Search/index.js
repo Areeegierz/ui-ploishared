@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
 import {
-  Button,
   Col,
   DatePicker,
+  Empty,
   Form,
-  Image,
-  List,
   Modal,
   Row,
   Skeleton,
@@ -16,17 +15,16 @@ import Basic from "../../components/navigation/Breadcrumb/Basic";
 import Widget from "../../components/Widget";
 import axios from "axios";
 import { API_URL, BASE_URL } from "../../repositories/repository";
-import Detail from "./detail";
-import Link from "antd/lib/typography/Link";
-import { NavLink } from "react-router-dom/cjs/react-router-dom";
-import { func } from "prop-types";
+
 import Booking from "./booking";
 import moment from "moment";
-import { start } from "nprogress";
+
 import { now } from "lodash";
+import { useForm } from "antd/lib/form/Form";
 
 const Index = () => {
-  const [listLoading, setListLoading] = useState();
+  const [form] = useForm();
+
   const [dataModal, setDataModal] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startDate, setStartDate] = useState();
@@ -35,6 +33,8 @@ const Index = () => {
   const [endTime, setEndTime] = useState();
   const [thisStart, setThisStart] = useState();
   const [thisEnd, setThisEnd] = useState();
+  const [car, setCar] = useState([]);
+  const [carList, setCarList] = useState(false);
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -45,22 +45,34 @@ const Index = () => {
     console.log(date, dateString);
   };
   const onAdd = (values) => {
-    console.log(values);
-    axios.get(API_URL + "Car/Get").then((res) => {
-      console.log("getcar", res);
-    });
+    axios
+      .get(API_URL + `Car/Search?start=${thisStart}&end=${thisEnd}`)
+      .then((res) => {
+        setCar(res.data.car);
+        setCarList(true);
+      });
   };
-  const [car, setCar] = useState([]);
-  const getData = () => {
-    setListLoading(true);
-    axios.get(API_URL + `Car/Get`).then((res) => {
-      setCar(res.data.car);
-      setListLoading(false);
-    });
+
+  const disabledHours = () => {
+    const hours = [];
+    const currentHour = startTime.split(":")[0];
+
+    for (let i = currentHour; i >= 0; i--) {
+      hours.push(i);
+    }
+
+    return hours;
   };
-  useEffect(() => {
-    getData();
-  }, []);
+  const disabledMinutes = (selectedHour) => {
+    const minutes = [];
+    const currentMinute = startTime.split(":")[1];
+    if (selectedHour === moment().hour()) {
+      for (let i = currentMinute; i >= 0; i--) {
+        minutes.push(i);
+      }
+    }
+    return minutes;
+  };
 
   function bookingModal(item) {
     setDataModal(item);
@@ -78,7 +90,8 @@ const Index = () => {
     }
   };
   const onChangeStartTime = (e) => {
-    console.log(e);
+    console.log("e", e);
+
     console.log(moment(e).format("HH:mm:ss"));
 
     setStartTime(moment(e).format("HH:mm:ss"));
@@ -86,6 +99,8 @@ const Index = () => {
       setThisStart(startDate + " " + moment(e).format("HH:mm:ss"));
       console.log("start : " + startDate + " " + moment(e).format("HH:mm:ss"));
     }
+    setEndTime(moment(e).format("HH:mm:ss"));
+    form.setFieldsValue({ endtime: e });
   };
   const onChangeEndDate = (e) => {
     console.log(e);
@@ -111,12 +126,10 @@ const Index = () => {
     <>
       <Basic slug={`ค้นหารถ`} />
 
-      {/* {JSON.stringify(thisStart)}
-      {JSON.stringify(thisEnd)} */}
       <Row justify={"center"}>
         <Col span={24}>
           <Widget className="mt-5" title={<h3>ตัวเลือกการจองรถ</h3>}>
-            <Form onFinish={onAdd} layout="vertical">
+            <Form form={form} onFinish={onAdd} layout="vertical">
               <div className="row">
                 <div className="col-md-3">
                   <Form.Item name={`startdate`} label={`วันที่จอง`}>
@@ -131,7 +144,7 @@ const Index = () => {
                   <Form.Item name={`starttime`} label={`เวลาที่จอง`}>
                     <TimePicker
                       format={"HH:mm"}
-                      onChange={onChangeStartTime}
+                      onSelect={onChangeStartTime}
                       style={{ width: "100%" }}
                     />
                   </Form.Item>
@@ -149,6 +162,12 @@ const Index = () => {
                 <div className="col-md-3">
                   <Form.Item name={`endtime`} label={`เวลาที่คืน`}>
                     <TimePicker
+                      disabledHours={
+                        startDate === endDate ? disabledHours : null
+                      }
+                      disabledMinutes={
+                        startDate === endDate ? disabledMinutes : null
+                      }
                       format={"HH:mm"}
                       onChange={onChangeEndTime}
                       style={{ width: "100%" }}
@@ -171,7 +190,7 @@ const Index = () => {
       </Row>
 
       <div className="row">
-        {car ? (
+        {car.length > 0 ? (
           car.map((item) => (
             <div className="col-md-4 p-3">
               <div className="card p-3" style={{ borderRadius: "22px" }}>
@@ -213,9 +232,7 @@ const Index = () => {
             </div>
           ))
         ) : (
-          <div>
-            <Skeleton />
-          </div>
+          <Empty description={"ยังไม่ได้เลือกวันและเวลาที่จอง"} />
         )}
       </div>
       <Modal

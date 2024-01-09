@@ -11,109 +11,114 @@ const Edit = ({ data }) => {
   function getData(id) {
     axios.get(API_URL + `User/GetById?id=${id}`).then((res) => {
       form.setFieldsValue(res.data.user);
+      console.log("gg", res.data);
     });
   }
   const [form] = useForm();
   const onFinish = (values) => {
     var context = {
-      id: 0,
+      id: values.id,
       username: values.username,
       password: values.password,
       code: values.code,
       fullName: values.fullName,
-      email: values.username + "@scg.com",
+      email: values.username,
       phone: values.phone,
       status: "A",
-      approvver: values.approvver + "@scg.com",
+      approver: values.approver,
       role: "member",
       createAt: null,
     };
-    axios.put(API_URL + `/user/update`, context).then((res) => {
+    console.log(context);
+    axios.put(API_URL + `user/update`, context).then((res) => {
       console.log(res);
       message.success(`บันทึกข้อมูลสำเร็จ`);
       form.resetFields();
     });
   };
   return (
-    <Form layout="vertical" onFinish={onFinish} form={form}>
-      <Form.Item
-        name={`username`}
-        label={`ชื่อผู้ใช้งาน`}
-        rules={[
-          {
-            required: true,
-            message: "The input your username!",
-          },
-        ]}
-      >
-        <Input addonAfter="@scg.com" placeholder="ชื่อผู้ใช้งาน" />
-      </Form.Item>
-      <Form.Item
-        name={`password`}
-        label={`รหัสผ่าน`}
-        rules={[
-          {
-            required: true,
-            message: "The input your password!",
-          },
-        ]}
-      >
-        <Input.Password placeholder="รหัสผ่าน" />
-      </Form.Item>
-      <Form.Item
-        name={`code`}
-        label={`รหัสพนักงาน`}
-        rules={[
-          {
-            required: true,
-            message: "The input your code!",
-          },
-        ]}
-      >
-        <Input placeholder="รหัสพนักงาน" />
-      </Form.Item>
-      <Form.Item
-        name={`fullName`}
-        label={`ชื่อ-นามสกุล`}
-        rules={[
-          {
-            required: true,
-            message: "The input your fullname!",
-          },
-        ]}
-      >
-        <Input placeholder="ชื่อ-นามสกุล" />
-      </Form.Item>
-      <Form.Item
-        name={`phone`}
-        label={`เบอร์โทรศัพท์`}
-        rules={[
-          {
-            required: true,
-            message: "The input your phone!",
-          },
-        ]}
-      >
-        <Input placeholder="เบอร์โทรศัพท์" />
-      </Form.Item>
-      <Form.Item
-        name={`approvver`}
-        label={`ผู้อนุมัติ`}
-        rules={[
-          {
-            required: true,
-            message: "The input your approvver!",
-          },
-        ]}
-      >
-        <Input addonAfter="@scg.com" placeholder="ผู้อนุมัติ" />
-      </Form.Item>
-      <Row justify={"center"}>
-        <Button type="primary" htmlType="submit">
-          บันทึก
-        </Button>
-      </Row>
-    </Form>
+    <>
+      <Form layout="vertical" onFinish={onFinish} form={form}>
+        <Form.Item name={`id`} label={`id`} hidden={true} />
+        <Form.Item
+          name={`username`}
+          label={`ชื่อผู้ใช้งาน`}
+          rules={[
+            {
+              required: true,
+              message: "The input your username!",
+            },
+          ]}
+        >
+          <Input addonAfter="@scg.com" placeholder="ชื่อผู้ใช้งาน" />
+        </Form.Item>
+        <Form.Item
+          name={`password`}
+          label={`รหัสผ่าน`}
+          rules={[
+            {
+              required: true,
+              message: "The input your password!",
+            },
+          ]}
+        >
+          <Input.Password placeholder="รหัสผ่าน" />
+        </Form.Item>
+        <Form.Item
+          name={`code`}
+          label={`รหัสพนักงาน`}
+          rules={[
+            {
+              required: true,
+              message: "The input your code!",
+            },
+          ]}
+        >
+          <Input placeholder="รหัสพนักงาน" />
+        </Form.Item>
+        <Form.Item
+          name={`fullName`}
+          label={`ชื่อ-นามสกุล`}
+          rules={[
+            {
+              required: true,
+              message: "The input your fullname!",
+            },
+          ]}
+        >
+          <Input placeholder="ชื่อ-นามสกุล" />
+        </Form.Item>
+        <Form.Item
+          name={`phone`}
+          label={`เบอร์โทรศัพท์`}
+          rules={[
+            {
+              required: true,
+              message: "The input your phone!",
+            },
+          ]}
+        >
+          <Input placeholder="เบอร์โทรศัพท์" />
+        </Form.Item>
+        <Form.Item
+          name={`approver`}
+          label={`ผู้อนุมัติ`}
+          rules={[
+            {
+              required: true,
+              message: "The input your approver!",
+            },
+          ]}
+        >
+          <Input addonAfter="@scg.com" placeholder="ผู้อนุมัติ" />
+        </Form.Item>
+        <Row justify={"center"}>
+          <Button type="primary" htmlType="submit">
+            บันทึก
+          </Button>
+        </Row>
+      </Form>
+    </>
   );
 };
 

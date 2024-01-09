@@ -29,6 +29,8 @@ import {
   THEME_TYPE_DARK,
 } from "../../constants/ThemeSetting";
 import { authUser } from "../../repositories/repository";
+import Approve from "../../routes/Booking/Approve/[code]";
+import Reject from "../../routes/Booking/Reject/[code]";
 
 const RestrictedRoute = ({ component: Component, location, ...rest }) => (
   <Route
@@ -143,6 +145,9 @@ const App = () => {
         messages={currentAppLocale.messages}
       >
         <Switch>
+          <Route exact path="/booking/approve/:code" component={Approve} />
+          <Route exact path="/booking/reject/:code" component={Reject} />
+
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/signup" component={SignUp} />
           <RestrictedRoute

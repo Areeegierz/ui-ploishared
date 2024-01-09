@@ -1,21 +1,20 @@
-import { Button, Table } from "antd";
+import { Button, Popconfirm, Table } from "antd";
 
 import Widget from "../../components/Widget";
 import { API_URL, authUser } from "../../repositories/repository";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { takeEvery } from "redux-saga/effects";
 import moment from "moment";
-import { EyeOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import Link from "antd/lib/typography/Link";
-
-const Complete = () => {
+const Wait = () => {
   const [tableLoading, setTableLoading] = useState();
   const [tableData, setTableData] = useState([]);
   const getTableData = () => {
     setTableLoading(true);
     axios
-      .get(API_URL + `Booking/Get?uid=${authUser.id}&status=A`)
+      .get(API_URL + `Booking/Get?uid=${authUser.id}&status=WA`)
       .then((res) => {
         setTableData(res.data.booking);
         setTableLoading(false);
@@ -27,7 +26,6 @@ const Complete = () => {
   const onChange = (date, dateString) => {
     console.log(date, dateString);
   };
-
   const columns = [
     {
       title: "ระยะเวลาที่จองรถ",
@@ -96,7 +94,6 @@ const Complete = () => {
       ),
     },
   ];
-
   return (
     <>
       <Widget>
@@ -110,4 +107,4 @@ const Complete = () => {
     </>
   );
 };
-export default Complete;
+export default Wait;

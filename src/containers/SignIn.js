@@ -3,6 +3,9 @@ import axios from "axios";
 import { useState } from "react";
 import { API_URL } from "../repositories/repository";
 import logo from "../../src/assets/image/ploishared-logo.png";
+
+const sign = require("jwt-encode");
+
 const SignIn = () => {
   const [loadings, setLoadings] = useState(false);
   const onFinish = (value) => {
@@ -20,9 +23,12 @@ const SignIn = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
-          localStorage.setItem("user", JSON.stringify(res.data.user));
-
+          const secret = "secret";
+          const jwt = sign(JSON.stringify(res.data.user), secret);
+          console.log(jwt);
+          localStorage.setItem("user", jwt);
           setLoadings(false);
+
           console.log(
             `เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ ${res.data.user.name}`,
             res.status
@@ -31,7 +37,7 @@ const SignIn = () => {
             `เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ ${res.data.user.name} `,
             1.5
           );
-          setTimeout(() => window.location.assign("/search"), 1000);
+          setTimeout(() => window.location.assign("/"), 1000);
         } else {
           message.error(res.status);
           setLoadings(false);

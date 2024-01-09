@@ -2,6 +2,7 @@ import { Button, Form, Input, Row, Select, message } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL, authUser } from "../../repositories/repository";
+import moment from "moment";
 
 const Booking = ({ data, start, end }) => {
   const [form] = Form.useForm();
@@ -13,6 +14,7 @@ const Booking = ({ data, start, end }) => {
   useEffect(() => {
     if (data) {
       form.setFieldsValue({ name: authUser.name, approver: authUser.approver });
+
       getUser();
       getProvince();
     }
@@ -39,10 +41,11 @@ const Booking = ({ data, start, end }) => {
   const onFinish = (values) => {
     setButtonLoading(true);
     console.log(values);
+    var endDate = moment(end).add(30, "minutes").format("YYYY-MM-DD HH:mm:ss");
     var context = {
       id: 0,
       startDate: new Date(start),
-      endDate: new Date(end),
+      endDate: new Date(endDate),
       target: values.target,
       costCenter: values.costCenter,
       note: values.note,
@@ -54,9 +57,12 @@ const Booking = ({ data, start, end }) => {
       startId: 0,
       endId: 0,
     };
-
     axios
-      .post(API_URL + `Booking/Create?phone=${values.phone}`, context)
+      .post(
+        API_URL +
+          `Booking/Create?phone=${values.phone}&start=${start}&end=${endDate}`,
+        context
+      )
       .then((res) => {
         message.success(`การจองสำเร็จ กรุณารออนุมัติ`);
         setButtonLoading(false);
@@ -69,6 +75,7 @@ const Booking = ({ data, start, end }) => {
   };
   return (
     <>
+      {/* {moment(end).add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")} */}
       <Form
         form={form}
         name="validateOnly"

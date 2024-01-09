@@ -23,6 +23,7 @@ import {
   FormOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
+import Link from "antd/lib/typography/Link";
 const Index = () => {
   const [car, setCar] = useState([]);
   const [dataModal, setDataModal] = useState();
@@ -83,7 +84,9 @@ const Index = () => {
         }
       >
         <Row>
-          {car ? (
+          {car[0] == null ? (
+            <Skeleton active />
+          ) : (
             car.map((item) => (
               <div className="col-md-4 p-3">
                 <div className="card p-3" style={{ borderRadius: "22px" }}>
@@ -104,7 +107,9 @@ const Index = () => {
                       >
                         {item.licensePlate}
                       </Tag>
-                      <p className="gx-mb-2">{item.name}</p>
+                      <Link href={`/car/${item.id}`} as={`/car/[id]`}>
+                        <p className="gx-mb-2">{item.name}</p>
+                      </Link>
                       <FormOutlined
                         onClick={() => editModal(item)}
                         style={{ color: "blue" }}
@@ -128,10 +133,6 @@ const Index = () => {
                 </div>
               </div>
             ))
-          ) : (
-            <div>
-              <Skeleton />
-            </div>
           )}
         </Row>
       </Widget>
