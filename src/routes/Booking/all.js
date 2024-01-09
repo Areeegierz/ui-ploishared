@@ -177,7 +177,7 @@ const All = () => {
   };
   return (
     <>
-      {JSON.stringify(tableData)}
+      {/* {JSON.stringify(tableData)} */}
       <Widget
         extra={
           <Button

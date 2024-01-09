@@ -199,18 +199,29 @@ const BookingDetail = (props) => {
                     Cancel();
                   }}
                 >
-                  <Button type="danger" onClick={() => {}}>
-                    ยกเลิกการจอง
-                  </Button>
+                  <Button type="danger">ยกเลิกการจอง</Button>
                 </Popconfirm>
               </>
             ) : null}
             {booking && booking.status === "A" ? (
               <>
                 {booking && booking.startId === 0 ? (
-                  <Button type="primary" onClick={showModal}>
-                    รับรถ
-                  </Button>
+                  <>
+                    <Button type="primary" onClick={showModal}>
+                      รับรถ
+                    </Button>
+
+                    <Popconfirm
+                      title={`คุณต้องการยกเลิกการจองครั้งนี้หรือไม่?`}
+                      okText="Yes"
+                      cancelText="No"
+                      onConfirm={() => {
+                        Cancel();
+                      }}
+                    >
+                      <Button type="danger">ยกเลิกการจอง</Button>
+                    </Popconfirm>
+                  </>
                 ) : (
                   <Button type="primary" onClick={endModal}>
                     คืนรถ

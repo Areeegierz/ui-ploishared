@@ -120,16 +120,15 @@ const All = () => {
     },
     {
       title: "ไมล์เริ่มต้น",
-      dataIndex: "startId",
+      dataIndex: "startMile",
     },
     {
       title: "ไมล์ตอนคืนรถ",
-      dataIndex: "endId",
+      dataIndex: "endMile",
     },
     {
       title: "ระยะที่ใช้รถ (กม.)",
-      dataIndex: "summaryMile",
-      render: (text, record) => record.endId - record.startId,
+      dataIndex: "summary",
     },
     {
       title: "CostCenter",
@@ -164,6 +163,7 @@ const All = () => {
   };
   return (
     <>
+      {/* {JSON.stringify(tableData)} */}
       <Widget
         extra={
           <Button

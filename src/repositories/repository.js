@@ -1,14 +1,14 @@
 import { decodeToken } from "react-jwt";
 
-var mode = "deploy";
+var mode = "dev";
 export const API_URL =
   mode === "dev"
     ? `https://localhost:7111/api/`
-    : `http://110.170.56.74:9000/api/`;
+    : `https://bangsonmarket.cipcloud.net:9000/api/`;
 export const BASE_URL =
   mode === "dev"
-    ? `https://localhost:7111/api/`
-    : `http://110.170.56.74:9000/api/`;
+    ? `https://localhost:7111`
+    : `https://bangsonmarket.cipcloud.net:9000`;
 
 export const authUser = getAuth();
 function getAuth() {

@@ -75,7 +75,7 @@ const Booking = ({ data, start, end }) => {
   };
   return (
     <>
-      {moment(end).add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")}
+      {/* {moment(end).add(30, "minutes").format("YYYY-MM-DD HH:mm:ss")} */}
       <Form
         form={form}
         name="validateOnly"
