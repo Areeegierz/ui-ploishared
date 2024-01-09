@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Avatar, Popover } from "antd";
+import { Avatar, Popover, message } from "antd";
 import { userSignOut } from "../../appRedux/actions";
 import { authUser } from "../../repositories/repository";
 import { UserOutlined } from "@ant-design/icons";
@@ -16,7 +16,8 @@ const UserProfile = () => {
       <li
         onClick={() => {
           localStorage.clear();
-          window.location.assign("/signin");
+          message.loading("กำลังออกจากระบบ");
+          setTimeout(() => window.location.assign("/signin"), 1000);
         }}
       >
         Logout

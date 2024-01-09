@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Basic from "../../../components/navigation/Breadcrumb/Basic";
 import axios from "axios";
 import { API_URL, BASE_URL } from "../../../repositories/repository";
-import { Card, Col, Row, Timeline } from "antd";
+import { Card, Col, Row, Skeleton, Spin, Timeline } from "antd";
 import Widget from "../../../components/Widget";
 import moment from "moment";
 import Link from "antd/lib/typography/Link";
@@ -58,16 +58,24 @@ const Detail = (props) => {
   return (
     <>
       <Basic
-        slug={`รายละเอียดรถป้ายทะเบียน ${car ? car.licensePlate : null}`}
+        slug={`รายละเอียดรถป้ายทะเบียน ${car ? car.licensePlate : "Retieving"}`}
       />
       <Row>
         <Col xl={8} lg={8} md={24} sm={24} xs={24}>
           <Widget>
-            <img src={car ? BASE_URL + car.image : null} />
+            {car && car.image ? (
+              <img src={BASE_URL + car.image} alt="" />
+            ) : (
+              <Skeleton.Image active />
+            )}
+
             <hr />
-            <h1>{car ? car.licensePlate : null}</h1>
-            <p>{car ? car.name : null}</p>
-            <p>ไมล์ล่าสุด {car ? car.mile : 0} km</p>
+            <h1>{car ? car.licensePlate : <Skeleton.Input active />}</h1>
+            <p>{car ? car.name : <Skeleton.Input size="small" active />}</p>
+            <p>
+              ไมล์ล่าสุด{" "}
+              {car ? car.mile : <Skeleton.Input size="small" active />} km
+            </p>
           </Widget>
         </Col>
         <Col xl={16} lg={16} md={24} sm={24} xs={24}>
@@ -75,28 +83,28 @@ const Detail = (props) => {
             <Col xl={6} lg={6} md={24} sm={24} xs={24}>
               <Widget title={<h2>ดำเนินการ</h2>}>
                 <div className="text-center">
-                  <h5>{progress} ครั้ง</h5>
+                  <h5>{progress ? progress : <Spin />} ครั้ง</h5>
                 </div>
               </Widget>
             </Col>
             <Col xl={6} lg={6} md={24} sm={24} xs={24}>
               <Widget title={<h2>สำเร็จ</h2>}>
                 <div className="text-center">
-                  <h5>{success} ครั้ง</h5>
+                  <h5>{success ? success : <Spin />} ครั้ง</h5>
                 </div>
               </Widget>
             </Col>
             <Col xl={6} lg={6} md={24} sm={24} xs={24}>
               <Widget title={<h2>ยกเลิก</h2>}>
                 <div className="text-center">
-                  <h5>{canceled} ครั้ง</h5>
+                  <h5>{canceled ? canceled : <Spin />} ครั้ง</h5>
                 </div>
               </Widget>
             </Col>
             <Col xl={6} lg={6} md={24} sm={24} xs={24}>
               <Widget title={<h2>ทั้งหมด</h2>}>
                 <div className="text-center">
-                  <h5>{total} ครั้ง</h5>
+                  <h5>{total ? total : <Spin />} ครั้ง</h5>
                 </div>
               </Widget>
             </Col>
@@ -151,7 +159,13 @@ const Detail = (props) => {
                         </Timeline.Item>
                       ))}
                     </>
-                  ) : null}
+                  ) : (
+                    <div>
+                      <Skeleton active />
+                      <br />
+                      <Skeleton active />
+                    </div>
+                  )}
                 </Timeline>
               </Card>
             </Col>

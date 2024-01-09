@@ -1,7 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL, BASE_URL } from "../../repositories/repository";
-import { Button, Card, Col, Modal, Popconfirm, Row, message } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Modal,
+  Popconfirm,
+  Row,
+  Skeleton,
+  message,
+} from "antd";
 import Basic from "../../components/navigation/Breadcrumb/Basic";
 import Widget from "../../components/Widget";
 import moment from "moment";
@@ -73,17 +82,30 @@ const BookingDetail = (props) => {
       <Row>
         <Col xl={8} lg={8} md={24} sm={24} xs={24}>
           <Widget>
-            <img src={car ? BASE_URL + car.image : null} />
+            {car && car.image ? (
+              <img src={BASE_URL + car.image} alt="" />
+            ) : (
+              <Skeleton.Image active />
+            )}
+
             <hr />
-            <h1>{car ? car.licensePlate : null}</h1>
-            <p>{car ? car.name : null}</p>
-            <p>ไมล์ล่าสุด {car ? car.mile : 0} km</p>
+            <h1>{car ? car.licensePlate : <Skeleton.Input active />}</h1>
+            <p>{car ? car.name : <Skeleton.Input size="small" active />}</p>
+            <p>
+              ไมล์ล่าสุด{" "}
+              {car ? car.mile : <Skeleton.Input size="small" active />} km
+            </p>
           </Widget>
         </Col>
         <Col xl={16} lg={16} md={24} sm={24} xs={24}>
           <Widget>
             <h1>
-              เลขที่ใบจองรถ : {booking ? booking.code : "ผิดผลาด"}{" "}
+              เลขที่ใบจองรถ :{" "}
+              {booking && booking.code ? (
+                booking.code
+              ) : (
+                <Skeleton.Input active />
+              )}{" "}
               {booking && booking.status === "C" ? (
                 <u style={{ color: "red" }}>ยกเลิก</u>
               ) : null}
@@ -101,9 +123,11 @@ const BookingDetail = (props) => {
               <Col xl={8} lg={8} md={24} sm={24} xs={24}>
                 <h5>
                   รับรถ :{" "}
-                  {booking
-                    ? moment(booking.startDate).format("DD/MM/YYYY HH:mm")
-                    : "ผิดผลาด"}
+                  {booking && booking.startDate ? (
+                    moment(booking.startDate).format("DD/MM/YYYY HH:mm")
+                  ) : (
+                    <Skeleton.Input size="small" active />
+                  )}
                 </h5>
                 <h5>
                   {booking && booking.startMile
@@ -114,9 +138,11 @@ const BookingDetail = (props) => {
               <Col xl={8} lg={8} md={24} sm={24} xs={24}>
                 <h5>
                   คืนรถ :
-                  {booking
-                    ? moment(booking.endDate).format("DD/MM/YYYY HH:mm")
-                    : "ผิดผลาด"}
+                  {booking && booking.endDate ? (
+                    moment(booking.endDate).format("DD/MM/YYYY HH:mm")
+                  ) : (
+                    <Skeleton.Input size="small" active />
+                  )}
                 </h5>
                 <h5>
                   {booking && booking.endMile
@@ -125,7 +151,14 @@ const BookingDetail = (props) => {
                 </h5>
               </Col>
               <Col xl={8} lg={8} md={24} sm={24} xs={24}>
-                <h5>จุดหมาย : {booking ? booking.nameInThai : "ผิดผลาด"}</h5>
+                <h5>
+                  จุดหมาย :{" "}
+                  {booking && booking.nameInThai ? (
+                    booking.nameInThai
+                  ) : (
+                    <Skeleton.Input size="small" active />
+                  )}
+                </h5>
                 <h5>
                   {" "}
                   {booking
@@ -140,14 +173,45 @@ const BookingDetail = (props) => {
             <Row>
               <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                 <h3>ข้อมูลผู้จองรถ</h3>
-                <p>ชื่อ - นามสกุล : {user ? user.fullName : "ผิดผลาด"}</p>
-                <p>อีเมล : {user ? user.username + "@scg.com" : "ผิดผลาด"}</p>
-                <p>เบอร์โทรศัพท์ : {user ? user.phone : "ผิดผลาด"}</p>
-                <p>Cost Center : {booking ? booking.costCenter : "ผิดผลาด"}</p>
+                <p>
+                  ชื่อ - นามสกุล :{" "}
+                  {user ? (
+                    user.fullName
+                  ) : (
+                    <Skeleton.Input size="small" active />
+                  )}
+                </p>
+                <p>
+                  อีเมล :{" "}
+                  {user ? (
+                    user.username + "@scg.com"
+                  ) : (
+                    <Skeleton.Input size="small" active />
+                  )}
+                </p>
+                <p>
+                  เบอร์โทรศัพท์ :{" "}
+                  {user ? user.phone : <Skeleton.Input size="small" active />}
+                </p>
+                <p>
+                  Cost Center :{" "}
+                  {booking ? (
+                    booking.costCenter
+                  ) : (
+                    <Skeleton.Input size="small" active />
+                  )}
+                </p>
               </Col>
               <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                 <h3>ผู้อนุมัติ</h3>
-                <p>อีเมล : {user ? user.approver + "@scg.com" : "ผิดผลาด"}</p>
+                <p>
+                  อีเมล :{" "}
+                  {user ? (
+                    user.approver + "@scg.com"
+                  ) : (
+                    <Skeleton.Input size="small" active />
+                  )}
+                </p>
               </Col>
             </Row>
           </Widget>
@@ -157,21 +221,37 @@ const BookingDetail = (props) => {
               <br />
               <Row>
                 <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                  <img src={BASE_URL + (booking ? booking.image1 : 0)} />
+                  {booking && booking.image1 ? (
+                    <img src={BASE_URL + booking.image1} alt="" />
+                  ) : (
+                    <Skeleton.Image active />
+                  )}
                 </Col>
                 <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                  <img src={BASE_URL + (booking ? booking.image2 : 0)} />
+                  {booking && booking.image1 ? (
+                    <img src={BASE_URL + booking.image2} alt="" />
+                  ) : (
+                    <Skeleton.Image active />
+                  )}
                 </Col>
                 <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                  <img src={BASE_URL + (booking ? booking.image3 : 0)} />
+                  {booking && booking.image1 ? (
+                    <img src={BASE_URL + booking.image3} alt="" />
+                  ) : (
+                    <Skeleton.Image active />
+                  )}
                 </Col>
                 <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                  <img src={BASE_URL + (booking ? booking.image4 : 0)} />
+                  {booking && booking.image1 ? (
+                    <img src={BASE_URL + booking.image4} alt="" />
+                  ) : (
+                    <Skeleton.Image active />
+                  )}
                 </Col>
               </Row>
             </Widget>
           ) : null}
-          {booking && booking.endId != 0 ? (
+          {booking && booking.endId !== 0 ? (
             <Widget>
               <h1>
                 เลขไมล์ตอนคืนรถ {booking ? booking.endMile : 0} กม. ระยะทางรวม{" "}
@@ -180,7 +260,11 @@ const BookingDetail = (props) => {
               <br />
               <Row>
                 <Col xl={6} lg={6} md={24} sm={24} xs={24}>
-                  <img src={BASE_URL + (booking ? booking.image : 0)} />
+                  {booking && booking.image1 ? (
+                    <img src={BASE_URL + booking.image1} alt="" />
+                  ) : (
+                    <Skeleton.Image active />
+                  )}
                 </Col>
               </Row>
             </Widget>

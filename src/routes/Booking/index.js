@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { Spin, Tabs } from "antd";
 import Basic from "../../components/navigation/Breadcrumb/Basic";
 
 import { API_URL, authUser } from "../../repositories/repository";
@@ -37,7 +37,12 @@ const Index = () => {
       key: "1",
       label: (
         <h5>
-          การจองในวันนี้ <span className="badge bg-danger">{acc}</span>
+          การจองในวันนี้{" "}
+          {acc >= 0 ? (
+            <span className="badge bg-danger">{acc}</span>
+          ) : (
+            <Spin size="small" />
+          )}
         </h5>
       ),
       children: <Running />,
@@ -46,7 +51,12 @@ const Index = () => {
       key: "2",
       label: (
         <h5>
-          การจองรออนุมัติ <span className="badge bg-danger">{wacc}</span>
+          การจองรออนุมัติ{" "}
+          {wacc >= 0 ? (
+            <span className="badge bg-danger">{wacc}</span>
+          ) : (
+            <Spin size="small" />
+          )}
         </h5>
       ),
       children: <Wait />,
@@ -55,7 +65,12 @@ const Index = () => {
       key: "3",
       label: (
         <h5>
-          การจองสำเร็จ <span className="badge bg-danger">{success}</span>
+          การจองสำเร็จ{" "}
+          {success >= 0 ? (
+            <span className="badge bg-danger">{success}</span>
+          ) : (
+            <Spin size="small" />
+          )}
         </h5>
       ),
       children: <Complete />,
@@ -64,7 +79,12 @@ const Index = () => {
       key: "4",
       label: (
         <h5>
-          รายการยกเลิก <span className="badge bg-danger">{canceled}</span>
+          รายการยกเลิก{" "}
+          {canceled >= 0 ? (
+            <span className="badge bg-danger">{canceled}</span>
+          ) : (
+            <Spin size="small" />
+          )}
         </h5>
       ),
       children: <Cancelled />,
@@ -73,7 +93,12 @@ const Index = () => {
       key: "5",
       label: (
         <h5>
-          การจองทั้งหมด <span className="badge bg-danger">{total}</span>
+          การจองทั้งหมด{" "}
+          {total >= 0 ? (
+            <span className="badge bg-danger">{total}</span>
+          ) : (
+            <Spin size="small" />
+          )}
         </h5>
       ),
       children: <All />,

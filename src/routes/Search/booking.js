@@ -67,7 +67,7 @@ const Booking = ({ data, start, end }) => {
         message.success(`การจองสำเร็จ กรุณารออนุมัติ`);
         setButtonLoading(false);
 
-        setTimeout(() => window.location.reload(), 2000);
+        setTimeout(() => window.location.assign("/Booking"), 2000);
       });
   };
   const onSearch = (value) => {
@@ -173,6 +173,7 @@ const Booking = ({ data, start, end }) => {
             loading={buttonLoading}
             htmlType="submit"
             className="btn btn-primary"
+            disabled={buttonLoading}
           >
             บันทึก
           </Button>

@@ -72,7 +72,7 @@ const Index = () => {
     getData();
   }, []);
   return (
-    <>
+    <div>
       <Basic slug={`จัดการรถ`} />
       <Widget
         title={<h3>รายการรถในระบบ</h3>}
@@ -155,7 +155,7 @@ const Index = () => {
       >
         <Edit data={dataModal} />
       </Modal>
-    </>
+    </div>
   );
 };
 export default Index;

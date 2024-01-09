@@ -132,7 +132,15 @@ const Index = () => {
             <Form form={form} onFinish={onAdd} layout="vertical">
               <div className="row">
                 <div className="col-md-3">
-                  <Form.Item name={`startdate`} label={`วันที่จอง`}>
+                  <Form.Item
+                    name={`startdate`}
+                    label={`วันที่จอง`}
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
                     <DatePicker
                       disabledDate={(d) => !d || d.isSameOrBefore(Date(now))}
                       onChange={onChangeStartDate}
@@ -141,7 +149,15 @@ const Index = () => {
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
-                  <Form.Item name={`starttime`} label={`เวลาที่จอง`}>
+                  <Form.Item
+                    name={`starttime`}
+                    label={`เวลาที่จอง`}
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
                     <TimePicker
                       format={"HH:mm"}
                       onSelect={onChangeStartTime}
@@ -150,7 +166,15 @@ const Index = () => {
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
-                  <Form.Item name={`enddate`} label={`วันที่คืน`}>
+                  <Form.Item
+                    name={`enddate`}
+                    label={`วันที่คืน`}
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
                     <DatePicker
                       disabledDate={(d) => !d || d.isSameOrBefore(startDate)}
                       onChange={onChangeEndDate}
@@ -160,7 +184,15 @@ const Index = () => {
                   </Form.Item>
                 </div>
                 <div className="col-md-3">
-                  <Form.Item name={`endtime`} label={`เวลาที่คืน`}>
+                  <Form.Item
+                    name={`endtime`}
+                    label={`เวลาที่คืน`}
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
                     <TimePicker
                       disabledHours={
                         startDate === endDate ? disabledHours : null
