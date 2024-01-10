@@ -116,7 +116,7 @@ const All = () => {
     },
     {
       title: "จังหวัดปลายทาง",
-      dataIndex: "provinceName",
+      dataIndex: "nameInThai",
     },
     {
       title: "ไมล์เริ่มต้น",
@@ -148,7 +148,7 @@ const All = () => {
     },
     {
       title: "สถานะ",
-      dataIndex: "statusTh",
+      dataIndex: "status",
     },
   ];
   const exportToExcel = () => {
@@ -163,7 +163,7 @@ const All = () => {
   };
   return (
     <>
-      {/* {JSON.stringify(tableData)} */}
+      {JSON.stringify(tableData)}
       <Widget
         extra={
           <Button
