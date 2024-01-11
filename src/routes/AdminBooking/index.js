@@ -17,6 +17,7 @@ const Index = () => {
   const [canceled, setCanceled] = useState();
   const [success, setSuccess] = useState();
   const [total, setTotal] = useState();
+  const bookingtab = localStorage.getItem("bookingtab");
   useEffect(() => {
     getNotice(authUser.id);
   }, []);
@@ -106,12 +107,13 @@ const Index = () => {
   ];
   const onChange = (values) => {
     console.log(values);
+    localStorage.setItem("bookingtab", values);
   };
   return (
     <>
       <Basic slug={`จองรถ`} />
 
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <Tabs defaultActiveKey={bookingtab} items={items} onChange={onChange} />
     </>
   );
 };

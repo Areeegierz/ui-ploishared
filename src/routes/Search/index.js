@@ -146,6 +146,7 @@ const Index = () => {
                       disabledDate={(d) => !d || d.isSameOrBefore(Date(now))}
                       onChange={onChangeStartDate}
                       style={{ width: "100%" }}
+                      inputReadOnly
                     />
                   </Form.Item>
                 </div>
@@ -163,6 +164,7 @@ const Index = () => {
                       format={"HH:mm"}
                       onSelect={onChangeStartTime}
                       style={{ width: "100%" }}
+                      inputReadOnly
                     />
                   </Form.Item>
                 </div>
@@ -180,7 +182,7 @@ const Index = () => {
                       disabledDate={(d) => !d || d.isSameOrBefore(startDate)}
                       onChange={onChangeEndDate}
                       style={{ width: "100%" }}
-                      zz
+                      inputReadOnly
                     />
                   </Form.Item>
                 </div>
@@ -204,6 +206,7 @@ const Index = () => {
                       format={"HH:mm"}
                       onChange={onChangeEndTime}
                       style={{ width: "100%" }}
+                      inputReadOnly
                     />
                   </Form.Item>
                 </div>

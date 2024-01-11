@@ -39,6 +39,7 @@ const Booking = ({ data, start, end }) => {
   }
 
   const onFinish = (values) => {
+    window.scrollTo(0, 0);
     setButtonLoading(true);
     console.log(values);
     var endDate = moment(end).add(30, "minutes").format("YYYY-MM-DD HH:mm:ss");
@@ -65,7 +66,6 @@ const Booking = ({ data, start, end }) => {
       )
       .then((res) => {
         message.success(`การจองสำเร็จ กรุณารออนุมัติ`);
-        setButtonLoading(false);
 
         setTimeout(() => window.location.assign("/Booking"), 2000);
       });

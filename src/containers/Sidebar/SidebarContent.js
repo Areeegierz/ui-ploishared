@@ -110,18 +110,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </NavLink>
                   </Menu.Item>
 
-                  <Menu.Item key="User">
-                    <NavLink
-                      style={{ color: "#E5E4E2" }}
-                      activeStyle={{ color: "orange" }}
-                      to="/User"
-                    >
-                      <i className="icon icon-widgets" />
-                      <span>
-                        <IntlMessages id="บัญชีผู้ใช้งาน" />
-                      </span>
-                    </NavLink>
-                  </Menu.Item>
                   <Menu.Item key="AdminBooking">
                     <NavLink
                       style={{ color: "#E5E4E2" }}
@@ -131,6 +119,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <i className="icon icon-widgets" />
                       <span>
                         <IntlMessages id="จัดการการจอง" />
+                      </span>
+                    </NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="User">
+                    <NavLink
+                      style={{ color: "#E5E4E2" }}
+                      activeStyle={{ color: "orange" }}
+                      to="/User"
+                    >
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="บัญชีผู้ใช้งาน" />
                       </span>
                     </NavLink>
                   </Menu.Item>

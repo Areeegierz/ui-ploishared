@@ -45,6 +45,10 @@ const Wait = () => {
       ),
     },
     {
+      title: "ผู้จอง",
+      dataIndex: "fullName",
+    },
+    {
       title: "สถานะ",
       dataIndex: "Status",
 

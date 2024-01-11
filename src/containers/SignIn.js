@@ -9,6 +9,7 @@ const sign = require("jwt-encode");
 const SignIn = () => {
   const [loadings, setLoadings] = useState(false);
   const onFinish = (value) => {
+    window.scrollTo(0, 0);
     setLoadings(true);
 
     message.loading("กำลังเข้าสู่ระบบ");

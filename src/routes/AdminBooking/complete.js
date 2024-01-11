@@ -47,6 +47,10 @@ const Complete = () => {
       ),
     },
     {
+      title: "ผู้จอง",
+      dataIndex: "fullName",
+    },
+    {
       title: "สถานะ",
       dataIndex: "Status",
 
