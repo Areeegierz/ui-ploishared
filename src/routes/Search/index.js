@@ -48,6 +48,7 @@ const Index = () => {
     axios
       .get(API_URL + `Car/Search?start=${thisStart}&end=${thisEnd}`)
       .then((res) => {
+        console.log(res);
         setCar(res.data.car);
         setCarList(true);
       });

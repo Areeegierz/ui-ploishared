@@ -148,7 +148,7 @@ const All = () => {
     },
     {
       title: "สถานะ",
-      dataIndex: "status",
+      dataIndex: "statusTh",
     },
   ];
   const exportToExcel = () => {
@@ -163,7 +163,7 @@ const All = () => {
   };
   return (
     <>
-      {JSON.stringify(tableData)}
+      {/* {JSON.stringify(tableData)} */}
       <Widget
         extra={
           <Button

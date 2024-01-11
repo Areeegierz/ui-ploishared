@@ -2,7 +2,7 @@ import { decodeToken } from "react-jwt";
 
 var mode = "prod";
 export const API_URL =
-  mode === "prod"
+  mode === "dev"
     ? `https://localhost:7111/api/`
     : `https://bangsonmarket.cipcloud.net:9000/api/`;
 export const BASE_URL =
