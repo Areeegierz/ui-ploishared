@@ -69,7 +69,10 @@ const BookingDetail = (props) => {
   }
   return (
     <>
-      <Basic slug={`รายละเอียดการจองรถ`} />
+      <Basic
+        pre={<a href="/AdminBooking">จัดการจอง</a>}
+        slug={`รายละเอียดจองรถ`}
+      />
       <Row>
         <Col xl={8} lg={8} md={24} sm={24} xs={24}>
           <Widget>

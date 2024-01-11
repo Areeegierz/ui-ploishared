@@ -73,7 +73,7 @@ const Index = () => {
   }, []);
   return (
     <div>
-      <Basic slug={`จัดการรถ`} />
+      <Basic pre={<a href="/car">จัดการรถ</a>} slug={`รถทั้งหมด`} />
       <Widget
         title={<h3>รายการรถในระบบ</h3>}
         className="mt-5"

@@ -72,7 +72,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <>
                   <Menu.Item key="search">
                     <NavLink
-                      to="/"
+                      to=""
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
                     >
@@ -96,10 +96,10 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                 </>
               ) : authUser.status === "Admin" ? (
-                <>
+                <div>
                   <Menu.Item key="search">
                     <NavLink
-                      to="/"
+                      to=""
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
                     >
@@ -146,7 +146,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </NavLink>
                   </Menu.Item>
-                </>
+                </div>
               ) : null}
             </Menu>
           </ConfigProvider>

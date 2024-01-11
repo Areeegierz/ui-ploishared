@@ -55,11 +55,15 @@ const App = ({ match }) => {
           exact
           component={asyncComponent(() => import("./Search/detail"))}
         />
-
         <Route
           path={`${match.url}AdminBooking`}
           exact
           component={asyncComponent(() => import("./AdminBooking/index"))}
+        />{" "}
+        <Route
+          path={`${match.url}AdminBooking/:id`}
+          exact
+          component={asyncComponent(() => import("./AdminBooking/detail"))}
         />
       </Switch>
     </div>

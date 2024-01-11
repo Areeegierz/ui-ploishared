@@ -84,7 +84,7 @@ const All = () => {
       width: 150,
       render: (text, record) => (
         <div>
-          <Link href={`/booking/${record.id}`} as={`/booking/[id]`}>
+          <Link href={`/AdminBooking/${record.id}`} as={`/AdminBooking/[id]`}>
             <Button
               className="btn btn-primary"
               icon={<EyeOutlined />}

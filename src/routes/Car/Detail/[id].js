@@ -58,6 +58,7 @@ const Detail = (props) => {
   return (
     <>
       <Basic
+        pre={<a href="/car">จัดการรถ</a>}
         slug={`รายละเอียดรถป้ายทะเบียน ${car ? car.licensePlate : "Retieving"}`}
       />
       <Row>

@@ -111,7 +111,10 @@ const Index = () => {
   };
   return (
     <>
-      <Basic slug={`จองรถ`} />
+      <Basic
+        pre={<a href="/AdminBooking">จัดการจอง</a>}
+        slug={`การจองรถทั้งหมด`}
+      />
 
       <Tabs defaultActiveKey={bookingtab} items={items} onChange={onChange} />
     </>
