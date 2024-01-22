@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
 import {
+  Button,
   Col,
   DatePicker,
   Empty,
   Form,
   Modal,
+  Result,
   Row,
   Skeleton,
   Tag,
@@ -18,7 +20,7 @@ import { API_URL, BASE_URL } from "../../repositories/repository";
 
 import Booking from "./booking";
 import moment from "moment";
-
+import { FieldTimeOutlined, SmileOutlined } from "@ant-design/icons";
 import { now } from "lodash";
 import { useForm } from "antd/lib/form/Form";
 
@@ -35,6 +37,7 @@ const Index = () => {
   const [thisEnd, setThisEnd] = useState();
   const [car, setCar] = useState([]);
   const [carList, setCarList] = useState(false);
+  const [search, setSearch] = useState(false);
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -49,6 +52,7 @@ const Index = () => {
       .get(API_URL + `Car/Search?start=${thisStart}&end=${thisEnd}`)
       .then((res) => {
         console.log(res);
+        setSearch(true);
         setCar(res.data.car);
         setCarList(true);
       });
@@ -122,6 +126,10 @@ const Index = () => {
       setThisEnd(endDate + " " + moment(e).format("HH:mm:ss"));
       console.log("start : " + endDate + " " + moment(e).format("HH:mm:ss"));
     }
+  };
+  const resetSearch = () => {
+    form.resetFields();
+    setSearch(false);
   };
   return (
     <>
@@ -226,7 +234,7 @@ const Index = () => {
       </Row>
 
       <div className="row">
-        {car.length > 0 ? (
+        {car.length > 0 && search === true ? (
           car.map((item) => (
             <div className="col-md-4 p-3">
               <div className="card p-3" style={{ borderRadius: "22px" }}>
@@ -267,8 +275,19 @@ const Index = () => {
               </div>
             </div>
           ))
+        ) : car.length <= 0 && search === false ? (
+          <Result
+            status="warning"
+            icon={<FieldTimeOutlined />}
+            title="ยังไม่ได้เลือกวันและเวลาที่ต้องการจอง"
+          />
         ) : (
-          <Empty description={"ยังไม่ได้เลือกวันและเวลาที่จอง"} />
+          <Result
+            status="error"
+            icon={<FieldTimeOutlined />}
+            title="ไม่มีรถว่างให้จอง ในช่วงเวลานี้"
+            extra={<Button onClick={() => resetSearch()}>เลือกเวลาใหม่</Button>}
+          />
         )}
       </div>
       <Modal

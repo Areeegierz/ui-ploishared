@@ -11,7 +11,7 @@ const App = ({ match }) => {
     >
       <Switch>
         <Route
-          path={`${match.url}`}
+          path={`${match.url}/`}
           exact
           component={asyncComponent(() => import("./Search/index"))}
         />

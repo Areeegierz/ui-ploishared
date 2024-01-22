@@ -114,7 +114,7 @@ const Detail = (props) => {
               <Card
                 title="ประวัติการจองรถ"
                 className="gx-card"
-                style={{ height: "400px" }}
+                style={{ height: "400px", overflowY: "auto" }}
               >
                 <Timeline>
                   {history ? (

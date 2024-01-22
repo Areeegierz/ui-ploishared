@@ -72,7 +72,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <>
                   <Menu.Item key="search">
                     <NavLink
-                      to=""
+                      exact
+                      to="/"
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
                     >
@@ -84,6 +85,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <Menu.Item key="booking">
                     <NavLink
+                      exact
                       to="/booking"
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
@@ -99,7 +101,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <div>
                   <Menu.Item key="search">
                     <NavLink
-                      to=""
+                      exact
+                      to="/"
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
                     >
@@ -114,6 +117,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <NavLink
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
+                      exact
                       to="/AdminBooking"
                     >
                       <i className="icon icon-widgets" />
@@ -126,6 +130,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <NavLink
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
+                      exact
                       to="/User"
                     >
                       <i className="icon icon-widgets" />
@@ -138,6 +143,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <NavLink
                       style={{ color: "#E5E4E2" }}
                       activeStyle={{ color: "orange" }}
+                      exact
                       to="/Car"
                     >
                       <i className="icon icon-widgets" />
