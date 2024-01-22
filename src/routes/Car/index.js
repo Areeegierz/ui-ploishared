@@ -35,6 +35,7 @@ const Index = () => {
       setCar(res.data.car);
     });
   };
+  console.log(car);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -84,7 +85,7 @@ const Index = () => {
         }
       >
         <Row>
-          {car[0] == null ? (
+          {car <= 0 ? (
             <Skeleton active />
           ) : (
             car.map((item) => (
@@ -92,13 +93,17 @@ const Index = () => {
                 <div className="card p-3" style={{ borderRadius: "22px" }}>
                   <Row>
                     <Col md={10} sm={10} xl={8} lg={12} xs={10}>
-                      <Image
-                        className="gx-rounded-lg"
-                        src={BASE_URL + item.image}
-                        width={90}
-                        height={90}
-                        alt="..."
-                      />
+                      {car.image != 0 ? (
+                        <Image
+                          className="gx-rounded-lg"
+                          src={BASE_URL + item.image}
+                          width={90}
+                          height={90}
+                          alt="..."
+                        />
+                      ) : (
+                        <Skeleton.Image active />
+                      )}
                     </Col>
                     <Col md={14} sm={14} xl={16} lg={12} xs={14}>
                       <Tag
