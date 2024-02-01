@@ -48,6 +48,8 @@ const Index = () => {
     console.log(date, dateString);
   };
   const onAdd = (values) => {
+    console.log(thisStart);
+    console.log(thisEnd);
     axios
       .get(API_URL + `Car/Search?start=${thisStart}&end=${thisEnd}`)
       .then((res) => {
@@ -151,6 +153,7 @@ const Index = () => {
                     ]}
                   >
                     <DatePicker
+                      format={"DD/MM/YYYY"}
                       disabledDate={(d) => !d || d.isSameOrBefore(Date(now))}
                       onChange={onChangeStartDate}
                       style={{ width: "100%" }}
@@ -187,6 +190,7 @@ const Index = () => {
                     ]}
                   >
                     <DatePicker
+                      format={"DD/MM/YYYY"}
                       disabledDate={(d) => !d || d.isSameOrBefore(startDate)}
                       onChange={onChangeEndDate}
                       style={{ width: "100%" }}
