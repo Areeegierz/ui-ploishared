@@ -168,7 +168,7 @@ const All = () => {
   const exportToExcel = () => {
     const excel = new Excel();
     excel
-      .addSheet(`รายการอะไหล่`)
+      .addSheet(`รายการจองรถ`)
       .addColumns(columnsExport)
       .addDataSource(tableData, {
         str2Percent: true,
