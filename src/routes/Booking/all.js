@@ -1,4 +1,4 @@
-import { Button, Table } from "antd";
+import { Button, Empty, Table } from "antd";
 
 import Widget from "../../components/Widget";
 import { API_URL, authUser } from "../../repositories/repository";
@@ -195,6 +195,15 @@ const All = () => {
           loading={tableLoading}
           columns={columns}
           dataSource={tableData}
+          locale={{
+            emptyText: (
+              <Empty description={"ไม่มีรายการจอง"}>
+                <Button href={"/"} type="primary">
+                  ไปจองเลย !
+                </Button>
+              </Empty>
+            ),
+          }}
         />
       </Widget>
     </>

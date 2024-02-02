@@ -1,4 +1,4 @@
-import { Button, Table } from "antd";
+import { Button, Empty, Table } from "antd";
 
 import Widget from "../../components/Widget";
 import { API_URL, authUser } from "../../repositories/repository";
@@ -98,16 +98,25 @@ const Complete = () => {
   ];
 
   return (
-    <>
+    <div>
       <Widget>
         <Table
           scroll={{ x: 1300, y: "100%" }}
           loading={tableLoading}
           columns={columns}
           dataSource={tableData}
+          locale={{
+            emptyText: (
+              <Empty description={"ไม่มีรายการจอง"}>
+                <Button href={"/"} type="primary">
+                  ไปจองเลย !
+                </Button>
+              </Empty>
+            ),
+          }}
         />
       </Widget>
-    </>
+    </div>
   );
 };
 export default Complete;

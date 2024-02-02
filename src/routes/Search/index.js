@@ -31,8 +31,8 @@ const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("00:00");
   const [thisStart, setThisStart] = useState();
   const [thisEnd, setThisEnd] = useState();
   const [car, setCar] = useState([]);

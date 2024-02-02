@@ -1,4 +1,4 @@
-import { Button, Popconfirm, Table } from "antd";
+import { Button, Empty, Popconfirm, Table } from "antd";
 
 import Widget from "../../components/Widget";
 import { API_URL, authUser } from "../../repositories/repository";
@@ -95,16 +95,25 @@ const Running = () => {
     },
   ];
   return (
-    <>
+    <div>
       <Widget>
         <Table
           scroll={{ x: 1300, y: "100%" }}
           loading={tableLoading}
           columns={columns}
           dataSource={tableData}
+          locale={{
+            emptyText: (
+              <Empty description={"ไม่มีรายการจอง"}>
+                <Button href={"/"} type="primary">
+                  ไปจองเลย !
+                </Button>
+              </Empty>
+            ),
+          }}
         />
       </Widget>
-    </>
+    </div>
   );
 };
 export default Running;
