@@ -1,4 +1,4 @@
-import { Spin, Tabs } from "antd";
+import { Input, Spin, Tabs } from "antd";
 import Basic from "../../components/navigation/Breadcrumb/Basic";
 
 import { API_URL, authUser } from "../../repositories/repository";

@@ -1,4 +1,4 @@
-import { Button, Empty, Popconfirm, Table } from "antd";
+import { Button, Empty, Input, Popconfirm, Table } from "antd";
 
 import Widget from "../../components/Widget";
 import { API_URL, authUser } from "../../repositories/repository";
@@ -11,6 +11,8 @@ import Link from "antd/lib/typography/Link";
 const Wait = () => {
   const [tableLoading, setTableLoading] = useState();
   const [tableData, setTableData] = useState([]);
+  const [searchedText, setSearchedText] = useState("");
+
   const getTableData = () => {
     setTableLoading(true);
     axios
@@ -37,6 +39,15 @@ const Wait = () => {
             moment(record.endDate).format("DD/MM/YYYY HH:mm")}
         </div>
       ),
+      filteredValue: [searchedText],
+      onFilter: (value, record) => {
+        return (
+          String(record.licensePlate)
+            .toLowerCase()
+            .includes(value.toLowerCase()) ||
+          String(record.fullName).toLowerCase().includes(value.toLowerCase())
+        );
+      },
     },
     {
       title: "รายการรถที่จอง",
@@ -97,6 +108,16 @@ const Wait = () => {
   return (
     <div>
       <Widget>
+        <Input.Search
+          placeholder="ค้นหาด้วยทะเบียนรถ หรือ ชื่อผู้จอง"
+          onSearch={(value) => {
+            setSearchedText(value);
+          }}
+          onChange={(e) => {
+            setSearchedText(e.target.value);
+          }}
+          style={{ marginBottom: "10px" }}
+        />
         <Table
           scroll={{ x: 1300, y: "100%" }}
           loading={tableLoading}

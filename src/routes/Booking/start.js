@@ -8,6 +8,7 @@ const Start = ({ booking }) => {
   const [form] = useForm();
   const [fileList, setFileList] = useState([]);
   const [file, setFile] = useState([]);
+  const [buttonLoading, setButtonLoading] = useState();
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -81,14 +82,17 @@ const Start = ({ booking }) => {
       createAt: null,
       createBy: authUser.id,
     };
+    setButtonLoading(true);
     axios
       .post(API_URL + `Start/Create?id=${booking.id}`, context)
       .then((res) => {
         message.success(`รับรถสำเร็จ`);
         setTimeout(() => window.location.reload(), 1000);
+        setButtonLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setButtonLoading(false);
       });
   };
   return (
@@ -140,9 +144,9 @@ const Start = ({ booking }) => {
         <Input />
       </Form.Item>
       <Row justify={"center"}>
-        <button type="submit" className="btn btn-primary">
+        <Button loading={buttonLoading} type="primary" htmlType="submit">
           บันทึก
-        </button>
+        </Button>
       </Row>
     </Form>
   );

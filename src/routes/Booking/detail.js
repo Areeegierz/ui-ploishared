@@ -37,6 +37,7 @@ const BookingDetail = (props) => {
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsEndOpen(false);
+    getBoooking(props.match.params.id);
   };
 
   useEffect(() => {

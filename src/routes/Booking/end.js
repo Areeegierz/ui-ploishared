@@ -7,6 +7,8 @@ import { useState } from "react";
 const End = ({ booking }) => {
   const [form] = useForm();
   const [file, setFile] = useState([]);
+  const [buttonLoading, setButtonLoading] = useState();
+
   const onChangeFile = ({ fileList: newFileList }) => {
     setFile(newFileList);
   };
@@ -45,14 +47,17 @@ const End = ({ booking }) => {
       createAt: null,
       createBy: authUser.id,
     };
+    setButtonLoading(true);
     axios
       .post(API_URL + `End/Create?id=${booking.id}`, context)
       .then((res) => {
         message.success(`คืนรถสำเร็จ`);
         setTimeout(() => window.location.reload(), 1000);
+        setButtonLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setButtonLoading(false);
       });
   };
   return (
@@ -87,9 +92,9 @@ const End = ({ booking }) => {
         <Input />
       </Form.Item>
       <Row justify={"center"}>
-        <button type="submit" className="btn btn-primary">
+        <Button loading={buttonLoading} type="primary" htmlType="submit">
           บันทึก
-        </button>
+        </Button>
       </Row>
     </Form>
   );
